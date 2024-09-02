@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::table('users', function (Blueprint $table) {
-            $table->string('email/username')->unique()->change();
             $table->enum('type', ['candidate', 'company', 'admin'])->after('password');
             $table->softDeletes();
         });

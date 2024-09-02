@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
-        Schema::create('admin', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');// ?CHECK
+        Schema::create('candidates', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->string('phone_number');
+            $table->string('job_title');
+            $table->string('cv');
+            $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('candidates');
     }
 };
