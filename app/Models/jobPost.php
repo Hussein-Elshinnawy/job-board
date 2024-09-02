@@ -6,15 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class company extends Model
+class jobPost extends Model
 {
     use HasFactory;
-
-    public function user(): BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Company::class);
     }
-    public function jobPost()
+    public function jobPost(): BelongsTo
+    {
+        return $this->belongsTo(city::class);
+    }
+    public function comment()
     {
         return $this->hasMany(jobPost::class);
     }
