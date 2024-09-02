@@ -21,4 +21,12 @@ class jobPost extends Model
     {
         return $this->hasMany(jobPost::class);
     }
+    public function category()
+    {
+        return $this->belongsToMany(category::class);
+    }
+    public function technology()
+    {
+        return $this->belongsToMany(technology::class);
+    }
 }

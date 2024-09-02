@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class comment extends Model
 {
     use HasFactory;
-    public function jobPost(): BelongsTo
+    public function jobPost()
     {
         return $this->belongsTo(JobPost::class);
     }
-    public function candidate(): BelongsTo
+    public function candidate()
     {
         return $this->belongsTo(candidate::class);
     }
