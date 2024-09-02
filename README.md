@@ -11,7 +11,7 @@ git clone https://github.com/Hussein-Elshinnawy/job-board.git
 ```
 or
 ```bash
-git clone git@github.com:Hussein-Elshinnawy/job-board.git
+git clone git@github.com:Hussein-Elshinnawy/job-board.git/
 ```
 ### 2. Adjust the .env file in root to connnect the database
 
