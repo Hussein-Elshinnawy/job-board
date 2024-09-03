@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('phone_number');
-            $table->string('job_title');
-            $table->string('cv');
+            $table->string('email')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('job_title')->nullable();
+            $table->string('cv')->nullable();
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
