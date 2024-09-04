@@ -15,7 +15,8 @@ class Company extends Model
         'email',
         'company_name',
         'description',
-        'contact_phone'
+        'contact_phone',
+        'logo'
     ];
 
     public function users(): HasOne

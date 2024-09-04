@@ -57,6 +57,12 @@ class DatabaseSeeder extends Seeder
         if (Comment::count() == 0) {
             $this->call(CommentSeeder::class);
         }
+        // ! this is just temp
+        // $this->call([
+        //     UserSeeder::class,
+        //     CompanySeeder::class,
+        //     CandidateSeeder::class,
+        // ]);
     }
 }
 

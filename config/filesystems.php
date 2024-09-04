@@ -62,6 +62,13 @@ return [
             'url' => env('APP_URL') . '/candidates',
             'throw' => false,
         ],
+        'companies' => [
+            'driver' => 'local',
+            'root' => public_path('companies'),
+            'visibility' => 'public',
+            'url' => env('APP_URL') . '/companies',
+            'throw' => false,
+        ],
 
     ],
 
