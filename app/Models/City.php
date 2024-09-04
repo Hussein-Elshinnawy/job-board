@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class city extends Model
+class City extends Model
 {
     use HasFactory;
     public function jobPost(){
-        return $this->hasMany(jobPost::class);
+        return $this->hasMany(JobPost::class);
     }
 }

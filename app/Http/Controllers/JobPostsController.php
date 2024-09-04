@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jobPost;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 
 class JobPostsController extends Controller
@@ -34,7 +34,7 @@ class JobPostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(jobPost $jobPost)
+    public function show(JobPost $jobPost)
     {
         //
     }
@@ -42,7 +42,7 @@ class JobPostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(jobPost $jobPost)
+    public function edit(JobPost $jobPost)
     {
         //
     }
@@ -50,7 +50,7 @@ class JobPostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, jobPost $jobPost)
+    public function update(Request $request, JobPost $jobPost)
     {
         //
     }
@@ -58,7 +58,7 @@ class JobPostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(jobPost $jobPost)
+    public function destroy(JobPost $jobPost)
     {
         //
     }

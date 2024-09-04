@@ -20,11 +20,11 @@ class User extends Authenticatable
 
     public function company(): HasOne
     {
-        return $this->hasOne(company::class);
+        return $this->hasOne(Company::class);
     }
     public function candidate(): HasOne
     {
-        return $this->hasOne(candidate::class);
+        return $this->hasOne(Candidate::class);
     }
     /**
      * The attributes that are mass assignable.

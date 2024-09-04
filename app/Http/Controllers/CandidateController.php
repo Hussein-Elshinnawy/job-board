@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\candidate;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -35,7 +35,7 @@ class CandidateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(candidate $candidate)
+    public function show(Candidate $candidate)
     {
         //
     }
@@ -43,7 +43,7 @@ class CandidateController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(candidate $candidate)
+    public function edit(Candidate $candidate)
     {
         //
     }
@@ -51,7 +51,7 @@ class CandidateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, candidate $candidate)
+    public function update(Request $request, Candidate $candidate)
     {
         //
     }
@@ -59,7 +59,7 @@ class CandidateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(candidate $candidate)
+    public function destroy(Candidate $candidate)
     {
         //
     }

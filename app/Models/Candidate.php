@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class candidate extends Model
+class Candidate extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id','email','phone_number', 'job_title', 'cv'];
@@ -15,6 +15,6 @@ class candidate extends Model
         return $this->belongsTo(User::class);
     }
     public function comment(){
-        return $this->hasMany(comment::class);
+        return $this->hasMany(Comment::class);
     }
 }

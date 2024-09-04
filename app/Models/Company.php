@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class company extends Model
+class Company extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id','email','company_name','description','contact_phone'];
@@ -16,6 +16,6 @@ class company extends Model
     }
     public function jobPost()
     {
-        return $this->hasMany(jobPost::class);
+        return $this->hasMany(JobPost::class);
     }
 }

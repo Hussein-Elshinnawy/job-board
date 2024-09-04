@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\admin;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -36,7 +36,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(admin $admin)
+    public function show(Admin $admin)
     {
         //
     }
@@ -44,7 +44,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(admin $admin)
+    public function edit(Admin $admin)
     {
         //
     }
@@ -52,7 +52,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, admin $admin)
+    public function update(Request $request, Admin $admin)
     {
         //
     }
@@ -60,7 +60,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(admin $admin)
+    public function destroy(Admin $admin)
     {
         //
     }

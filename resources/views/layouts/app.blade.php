@@ -21,7 +21,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fftitle">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
                 <a class="navbar-brand coprimary fw-bolder" href="{{ url('/') }}">
                     JobBoard
@@ -39,7 +39,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav  ms-auto">
                         <!-- Authentication Links -->
                         <li class="nav-item">
                             <a class="nav-link coprimary fw-semibold" href="{{ url('/') }}">Home</a>
@@ -76,6 +76,10 @@
                                 </div>
                             </li>
                         @endguest
+                        <div class=" bg-success justify-content-center align-content-center px-4 py-3">
+                            <a href="/" class="link m-auto fw-semibold link-underline-opacity-0 link-light">Post a
+                                Job &#8594;</a>
+                        </div>
                     </ul>
                 </div>
             </div>

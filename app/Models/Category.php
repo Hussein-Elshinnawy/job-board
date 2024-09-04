@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class category extends Model
+class Category extends Model
 {
     use HasFactory;
     public function jobPost()
     {
-        return $this->belongsToMany(jobPost::class);
+        return $this->belongsToMany(JobPost::class);
     }
 }
