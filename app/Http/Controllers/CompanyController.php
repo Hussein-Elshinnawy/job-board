@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class CompanyController extends Controller
 {
 
     public function index()
     {
         //
-        return view("company.dashboard");
+        $user = Auth::user()->load('companies');
+        $company = $user->companies;
+        // dd($user,$company);
+
+        return view("company.profile", compact('company','user'));
     }
 
     /**

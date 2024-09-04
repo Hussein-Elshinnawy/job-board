@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CandidateController extends Controller
 {
@@ -13,7 +14,18 @@ class CandidateController extends Controller
     public function index()
     {
         //
-        return view("candidate.dashboard");
+        // $user = Auth::User();
+
+        // $candidate = $user->candidates;
+        // dd($candidate);
+
+        $user = Auth::user()->load('candidates');
+        // dd($user);
+        $candidate = $user->candidates;
+
+        // dd($user, $user->candidates);
+
+        return view("candidate.profile",compact('candidate','user'));
     }
 
     /**

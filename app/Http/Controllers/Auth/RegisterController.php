@@ -130,9 +130,9 @@ class RegisterController extends Controller
     {
 
         if ($user->type == 'candidate') {
-            return redirect()->route('candidate.dashboard');
+            return redirect()->route('candidate.profile');
         } elseif ($user->type == 'company') {
-            return redirect()->route('company.dashboard');
+            return redirect()->route('company.profile');
         }
 
         return redirect($this->redirectTo);

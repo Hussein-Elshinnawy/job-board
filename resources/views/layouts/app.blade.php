@@ -87,7 +87,6 @@
         </nav>
 
         <main class="container py-4 flex-grow-1">
-            {{-- ?will will need to handle overflow --}}
             @yield('content')
         </main>
 
