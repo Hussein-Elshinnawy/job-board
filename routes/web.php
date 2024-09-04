@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CompanyController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,5 +23,3 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/candidate/dashboard', [CandidateController::class, 'index'])->name('candidate.dashboard');
 
 Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
-
-

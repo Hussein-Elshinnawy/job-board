@@ -1,1 +1,9 @@
-<h1>admin dashboard</h1>
+@extends("layouts.app")
+
+@section("title")
+    Admin Dashboard
+@endsection
+
+@section("content")
+    <h1>Admin Dashboard</h1>
+@endsection
