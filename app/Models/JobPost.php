@@ -14,37 +14,48 @@ class JobPost extends Model
 
     protected $fillable = [
         'company_id',
-        'job_title',
-        'job_description',
         'city_id',
-        'category_id',
-        'technology_id',
-        'salary',
+        'title',
+        'status',
         'is_active',
+        'description',
+        'min_salary',
+        'max_salary',
+        'qualification',
+        'responsibilities',
+        'benefits',
+        'work_type',
+        'deadline',
+        'vacancies',
     ];
 
-    public function company(): BelongsTo
+    public function companies(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function city(): BelongsTo
+    public function cities(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
-    public function comment(): HasMany
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
-    public function category(): BelongsToMany
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'categories_job_posts');
     }
 
-    public function technology(): HasMany
+    public function applications(): HasMany
     {
-        return $this->hasMany(Technology::class);
+        return $this->hasMany(Application::class);
+    }
+
+    public function technologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class, 'technologies_job_posts');
     }
 }

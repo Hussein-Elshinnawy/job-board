@@ -16,12 +16,12 @@ class Application extends Model
         'status',
     ];
 
-    public function jobPost(): BelongsTo
+    public function jobPosts(): BelongsTo
     {
         return $this->belongsTo(JobPost::class);
     }
 
-    public function candidate(): BelongsTo
+    public function candidates(): BelongsTo
     {
         return $this->belongsTo(Candidate::class);
     }

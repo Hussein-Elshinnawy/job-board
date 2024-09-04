@@ -5,16 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Technology extends Model
+class CategoryJob extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "name",
+        'job_post_id',
+        'category_id'
     ];
-
-    public function jobPosts()
-    {
-        return $this->belongsToMany(JobPost::class, 'technologies_job_posts');
-    }
 }

@@ -13,8 +13,8 @@ class Category extends Model
         'name',
     ];
 
-    public function jobPost()
+    public function jobPosts()
     {
-        return $this->belongsToMany(JobPost::class);
+        return $this->belongsToMany(JobPost::class, 'categories_job_posts');
     }
 }

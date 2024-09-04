@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('technologies_job_posts', function (Blueprint $table) {
-            $table->foreignId('technology_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('job_post_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('technology_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
 
             // Define the composite primary key
             $table->primary(['technology_id', 'job_post_id']);

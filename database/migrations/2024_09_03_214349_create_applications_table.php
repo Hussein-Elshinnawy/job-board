@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('job_post_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('candidate_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ["pending", "reviewed", "accepted", "rejected"]);
             $table->timestamps();

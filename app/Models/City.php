@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class City extends Model
 {
@@ -13,7 +14,7 @@ class City extends Model
         "name",
     ];
 
-    public function jobPost()
+    public function jobPosts(): HasMany
     {
         return $this->hasMany(JobPost::class);
     }

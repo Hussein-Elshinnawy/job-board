@@ -17,12 +17,12 @@ class Candidate extends Model
         'cv'
     ];
 
-    public function user(): HasOne
+    public function users(): HasOne
     {
         return $this->hasOne(User::class);
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->hasMany(Comment::class);
     }
