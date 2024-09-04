@@ -10,14 +10,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Comment extends Model
 {
     use HasFactory;
-    public function jobPost()
+
+    protected $fillable = [
+        'job_post_id',
+        'candidate_id',
+        'body',
+    ];
+
+    public function jobPost(): BelongsTo
     {
         return $this->belongsTo(JobPost::class);
     }
-    public function candidate()
+
+    public function candidate(): BelongsTo
     {
         return $this->belongsTo(Candidate::class);
     }
-
-
 }

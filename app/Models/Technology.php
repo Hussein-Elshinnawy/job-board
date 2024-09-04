@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Technology extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+    ];
+
     public function jobPost()
     {
         return $this->belongsToMany(JobPost::class);

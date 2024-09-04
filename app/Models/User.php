@@ -12,20 +12,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-
-    public function admin(): HasOne
-    {
-        return $this->hasOne(Admin::class);
-    }
-
-    public function company(): HasOne
-    {
-        return $this->hasOne(Company::class);
-    }
-    public function candidate(): HasOne
-    {
-        return $this->hasOne(Candidate::class);
-    }
     /**
      * The attributes that are mass assignable.
      *
@@ -61,5 +47,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function candidate(): HasOne
+    {
+        return $this->hasOne(Candidate::class);
     }
 }

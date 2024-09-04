@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     use HasFactory;
-    public function jobPost(){
+
+    protected $fillable = [
+        "name",
+    ];
+
+    public function jobPost()
+    {
         return $this->hasMany(JobPost::class);
     }
 }
