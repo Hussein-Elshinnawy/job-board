@@ -91,7 +91,8 @@
         </main>
 
     </div>
-    <div class="container bgdark colight fixed-bottom py-4">
+    {{-- * i removed fixe-bottom as it was hidding the div after user select register type --}}
+    <footer class="container bgdark colight  py-4">
         <div class="row pt-5 colightopacity">
             <div class="col">
                 <ul style="list-style-type:none;" class="">
@@ -182,7 +183,7 @@
 
             </div>
         </div>
-    </div>
+    </footer>
 </body>
 
 </html>
