@@ -87,9 +87,11 @@
         </nav>
 
         <main class="container py-4 flex-grow-1">
+            {{-- will will need to handle overflow --}}
             @yield('content')
         </main>
 
+    {{-- * i removed fixe-bottom as it was hidding the div after user select register type --}}
         <footer class="container bgdark colight  py-4">
             <div class="row pt-5 colightopacity">
                 <div class="col">
@@ -183,7 +185,6 @@
             </div>
         </footer>
     </div>
-    {{-- * i removed fixe-bottom as it was hidding the div after user select register type --}}
 </body>
 
 </html>

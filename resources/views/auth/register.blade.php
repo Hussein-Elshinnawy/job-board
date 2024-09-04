@@ -8,11 +8,12 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                <label for="name"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
@@ -69,7 +70,7 @@
                                 <div class="col-md-6">
                                     <select id="type" name="type" class="form-control" required
                                         onchange="getRespectiveFields()">
-                                        <option value="">Select Type</option>
+                                        {{-- <option value="">Select Type</option> --}}
                                         <option value="candidate">Candidate</option>
                                         <option value="company">Company</option>
                                     </select>
@@ -84,9 +85,13 @@
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-end">Phone
                                         Number</label>
                                     <div class="col-md-6">
-                                        <input id="phone_number" type="text" class="form-control" name="phone_number">
+                                        <input id="phone_number" type="text"
+                                            class="form-control @error('phone_number') is-invalid @enderror"
+                                            name="phone_number" value="{{ old('phone_number') }}">
                                         @error('phone_number')
-                                            <span>{{ $message }}</span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -94,9 +99,13 @@
                                 <div class="row mb-3">
                                     <label for="job_title" class="col-md-4 col-form-label text-md-end">Job Title</label>
                                     <div class="col-md-6">
-                                        <input id="job_title" type="text" class="form-control" name="job_title">
+                                        <input id="job_title" type="text"
+                                            class="form-control @error('job_title') is-invalid @enderror"
+                                            name="job_title" value="{{ old('job_title') }}">
                                         @error('job_title')
-                                            <span>{{ $message }}</span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -104,7 +113,8 @@
                                 <div class="row mb-3">
                                     <label for="cv" class="col-md-4 col-form-label text-md-end">CV</label>
                                     <div class="col-md-6">
-                                        <input id="cv" type="text" class="form-control" name="cv">
+                                        <input id="cv" type="file" class="form-control" name="cv"
+                                            accept=".pdf,.doc,.docx">
                                         @error('cv')
                                             <span>{{ $message }}</span>
                                         @enderror
@@ -117,7 +127,8 @@
                                     <label for="company_name" class="col-md-4 col-form-label text-md-end">Company
                                         Name</label>
                                     <div class="col-md-6">
-                                        <input id="company_name" type="text" class="form-control" name="company_name">
+                                        <input id="company_name" type="text" class="form-control"
+                                            name="company_name">
                                         @error('company_name')
                                             <span>{{ $message }}</span>
                                         @enderror

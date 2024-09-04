@@ -34,15 +34,16 @@ class RegisterController extends Controller
         ];
 
         if (isset($data['type']) && $data['type'] === 'candidate') {
-            $rules['phone_number'] = ['required', 'string', 'max:255'];
+            $rules['phone_number'] = ['required', 'string', 'max:255','unique:candidates'];
             $rules['job_title'] = ['required', 'string', 'max:255'];
-            $rules['cv'] = ['required', 'string', 'max:255'];
+            $rules['cv'] = [ 'mimes:pdf,doc,docx', 'max:10240'];
         }
 
         if (isset($data['type']) && $data['type'] === 'company') {
             $rules['company_name'] = ['required', 'string', 'max:255'];
             $rules['description'] = ['required', 'string', 'max:255'];
-            $rules['contact_phone'] = ['required', 'string', 'max:255'];
+            $rules['contact_phone'] = ['required', 'string', 'max:255','unique:companies'];
+
         }
 
         return Validator::make($data, $rules);
@@ -59,14 +60,19 @@ class RegisterController extends Controller
         // dd( $data['type']);
         // dd($data);
         if ( $data['type'] == 'candidate') {
-
+            $cvPath = null;
+            if (isset($data['cv'])) {
+                // dd($data['cv']->file());
+                $cv = $data['cv'];
+                $cvPath = $cv->store('cvs', 'candidates');
+            }
 
             Candidate::create([
                 'user_id' => $user->id,
                 // 'email' =>  $data['email'],
                 'phone_number' => $data['phone_number'],
                 'job_title' => $data['job_title'],
-                'cv' => $data['cv'],
+                'cv' => $cvPath,
             ]);
 
         } elseif ( $data['type'] == 'company') {
