@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->foreignId('city_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('city_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
-            $table->string('description');
-            $table->integer('min_salary');
-            $table->integer('max_salary');
+            $table->enum('status', ["pending", "approved", "rejected"])->default("pending");
+
+            $table->boolean('is_active')->default(true);
+            $table->text('description');
+            $table->float('min_salary');
+            $table->float('max_salary');
+            $table->text('qualification');
+            $table->text('responsibilities');
+            $table->text('benefits');
+            $table->enum('work_type', ["onside", "remote", "hybrid", "freelance"]);
             $table->date('deadline');
-            $table->string('qualification');
-            $table->enum('experience', ["Internship, Junior, Mid, Senior, Lead, Managerial "]);
-            $table->string('responsibilities');
-            $table->string('benefits');
-            $table->enum('work_type', ["onside, remote, hybrid, freelance"]);
-            $table->integer('vacancies');
+            $table->tinyInteger('vacancies');
             $table->timestamps();
             $table->softDeletes();
         });

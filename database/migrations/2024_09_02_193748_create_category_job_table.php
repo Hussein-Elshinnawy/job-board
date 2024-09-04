@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories_job_posts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('job_post_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('job_post_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

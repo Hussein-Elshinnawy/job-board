@@ -1,0 +1,44 @@
+/* variables. to use variables => color: var(--dark); */
+:root {
+    --primary: #00b074;
+    --lightprimary: #effdf5;
+    --secondary: #2b9bff;
+    --light: #effdf5;
+    --dark: #2b3940;
+    --grey: #666565;
+    --lightopacity: #ffffff77;
+}
+/* colors */
+.coprimary {
+    color: #00b074 !important;
+}
+.cosecondary {
+    color: #2b9bff !important;
+}
+.colight {
+    color: #effdf5 !important;
+}
+.codark {
+    /*also headers font color */
+    color: #2b3940 !important;
+}
+
+.lightprimary {
+    color: #effdf5 !important;
+}
+
+.cogrey {
+    color: #666565 !important;
+}
+
+.colightopacity {
+    color: #ffffff77 !important;
+}
+/* font families:*/
+.fftitle {
+    font-family: "Inter", sans-serif;
+}
+
+.ffbody {
+    font-family: "Heebo", sans-serif;
+}

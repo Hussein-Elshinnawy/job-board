@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('job_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('candidate_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->enum('status', ["pending", "reviewed", "accepted", "rejected"]);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('applications');
     }
 };

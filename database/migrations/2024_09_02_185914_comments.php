@@ -13,10 +13,10 @@ return new class extends Migration
     {
         //
         Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->foreignId('job_id')->constrained();
             $table->foreignId('candidate_id')->constrained();
-            $table->string('body');
+            $table->text('body');
             $table->timestamps();
             $table->softDeletes();
         });
