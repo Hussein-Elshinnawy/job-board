@@ -63,7 +63,7 @@ class RegisterController extends Controller
 
             Candidate::create([
                 'user_id' => $user->id,
-                'email' =>  $data['email'],
+                // 'email' =>  $data['email'],
                 'phone_number' => $data['phone_number'],
                 'job_title' => $data['job_title'],
                 'cv' => $data['cv'],
@@ -73,7 +73,7 @@ class RegisterController extends Controller
 
             Company::create([
                 'user_id' => $user->id,
-                'email' => $data['email'],
+                // 'email' => $data['email'],
                 'company_name' => $data['company_name'],
                 'description' => $data['description'],
                 'contact_phone' => $data['contact_phone'],
