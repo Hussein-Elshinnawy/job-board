@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="">
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
                 <a class="navbar-brand coprimary fw-bolder" href="{{ url('/') }}">
@@ -32,7 +32,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
@@ -76,11 +76,12 @@
                                 </div>
                             </li>
                         @endguest
-                        <div class=" bg-success justify-content-center align-content-center px-4 py-3">
-                            <a href="/" class="link m-auto fw-semibold link-underline-opacity-0 link-light">Post a
-                                Job &#8594;</a>
-                        </div>
                     </ul>
+                </div>
+                <div class=" bg-success justify-content-center align-content-center px-4 py-3">
+                    <a href="/"
+                        class="link m-auto fw-semibold link-underline-opacity-0 link-light colightopacity">Post a
+                        Job &#8594;</a>
                 </div>
             </div>
         </nav>
@@ -89,6 +90,98 @@
             @yield('content')
         </main>
 
+    </div>
+    <div class="container bgdark colight fixed-bottom py-4">
+        <div class="row pt-5 colightopacity">
+            <div class="col">
+                <ul style="list-style-type:none;" class="">
+                    <li>
+                        <h5 class="fw-bold colight">Company</h5>
+                    </li>
+
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0  link-light link-opacity-50">Home</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                            Us</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                            Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul style="list-style-type:none;" class="">
+                    <li>
+                        <h5 class="fw-bold colight">Company</h5>
+                    </li>
+
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                            Us</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                            Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul style="list-style-type:none;" class="">
+                    <li>
+                        <h5 class="fw-bold colight">Company</h5>
+                    </li>
+
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                            Us</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                            Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul style="list-style-type:none;" class="">
+                    <li>
+                        <h5 class="fw-bold colight">Company</h5>
+                    </li>
+
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                            Us</a>
+                    </li>
+                    <li>
+                        &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                            Us</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <hr>
+        <div>
+            <div>
+                <span class="colightopacity"> &#169; </span> Your Site Name <span class="colightopacity"> All Rihts
+                    Reserved
+                </span>
+            </div>
+            <div>
+
+            </div>
+        </div>
     </div>
 </body>
 

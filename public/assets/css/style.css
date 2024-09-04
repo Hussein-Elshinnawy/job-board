@@ -12,27 +12,48 @@
 .coprimary {
     color: #00b074 !important;
 }
+.bgprimary {
+    background-color: #00b074 !important;
+}
 .cosecondary {
     color: #2b9bff !important;
 }
+.bgsecondary {
+    background-color: #2b9bff !important;
+}
 .colight {
     color: #effdf5 !important;
+}
+.bglight {
+    background-color: #effdf5 !important;
 }
 .codark {
     /*also headers font color */
     color: #2b3940 !important;
 }
+.bgdark {
+    background-color: #2b3940 !important;
+}
 
 .lightprimary {
     color: #effdf5 !important;
+}
+.bglightprimary {
+    background-color: #effdf5 !important;
 }
 
 .cogrey {
     color: #666565 !important;
 }
+.bggrey {
+    background-color: #666565 !important;
+}
 
 .colightopacity {
     color: #ffffff77 !important;
+}
+.bglightopacity {
+    background-color: #ffffff77 !important;
 }
 /* font families:*/
 .fftitle {
