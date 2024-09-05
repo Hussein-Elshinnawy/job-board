@@ -87,7 +87,7 @@
             </div>
         </nav>
 
-        <main class="container flex-grow-1">
+        <main class="container bgwhite flex-grow-1">
             @yield("content")
         </main>
 

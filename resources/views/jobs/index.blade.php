@@ -5,8 +5,8 @@
 @endsection
 
 @section("content")
-    <div class="bgwhite py-3">
-        <h1 class="text-center pt-5 fw-bolder">Job Listing</h1>
+    <div class="py-3">
+        <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Listing</h1>
         @foreach ($jobs as $job)
             <div class="m-5 p-4 job-item">
                 <a href="{{ route("jobs.show", $job) }}" class="text-decoration-none cogrey">
@@ -15,21 +15,21 @@
                             <img src="{{ asset("assets/images/company/logo.jpg") }}" width="100" height="100" style="border: 1px solid #dee2e6 !important">
                         </div>
                         <div class="col-7">
-                            <h4 class="codark">{{ $job->title }}</h4>
-                            <p class="">Company Name: {{ $job->company->company_name }}</p>
-                            <span class=" me-3">
+                            <h4 class="codark fftitle">{{ $job->title }}</h4>
+                            <p>Company Name: {{ $job->company->company_name }}</p>
+                            <span class="me-3">
                                 <i class="fa-solid fa-location-dot coprimary me-1"></i>
                                 {{ $job->city->name }}
                             </span>
-                            <span class=" me-3">
+                            <span class="me-3">
                                 <i class="fa-regular fa-clock coprimary me-1"></i>
                                 {{ $job->work_type }}
                             </span>
-                            <span class=" me-3">
+                            <span class="me-3">
                                 <i class="fa-regular fa-money-bill-1 coprimary me-1"></i>
                                 {{ $job->min_salary }} - {{ $job->max_salary }}
                             </span>
-                            {{-- <p class="">{{ \Illuminate\Support\Str::words($job->description, 10) }}</p> --}}
+                            {{-- <p>{{ \Illuminate\Support\Str::words($job->description, 10) }}</p> --}}
                             {{-- <h4>descripttion: {{ strlen($job->description) > 50 ? substr($job->description, 0, 100) . ".." : $job->description }}</h4> --}}
                         </div>
                         <div class="col-3 text-end">

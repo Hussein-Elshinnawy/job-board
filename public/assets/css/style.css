@@ -8,6 +8,24 @@
     --grey: #666565;
     --lightopacity: #ffffff77;
 }
+
+body {
+    font-family: "Heebo", sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    color: #666565 !important;
+}
+
+/* font families:*/
+.fftitle {
+    font-family: "Inter", sans-serif;
+}
+
+.ffbody {
+    font-family: "Heebo", sans-serif;
+}
+
 /* colors */
 .coprimary {
     color: #00b074 !important;
@@ -74,15 +92,6 @@
     background-color: #ffffff77 !important;
 }
 
-/* font families:*/
-.fftitle {
-    font-family: "Inter", sans-serif;
-}
-
-.ffbody {
-    font-family: "Heebo", sans-serif;
-}
-
 .job-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
@@ -92,5 +101,4 @@
 
 .job-item:hover {
     scale: 1.05;
-    /* cursor: pointer; */
 }
