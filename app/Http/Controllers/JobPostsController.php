@@ -12,7 +12,8 @@ class JobPostsController extends Controller
      */
     public function index()
     {
-        //
+        $jobs = JobPost::all();
+        return view("jobs.index", compact("jobs"));
     }
 
     /**
@@ -34,15 +35,15 @@ class JobPostsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JobPost $jobPost)
+    public function show(JobPost $job)
     {
-        //
+        return view("jobs.show", compact("job"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JobPost $jobPost)
+    public function edit(JobPost $job)
     {
         //
     }
@@ -50,7 +51,7 @@ class JobPostsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JobPost $jobPost)
+    public function update(Request $request, JobPost $job)
     {
         //
     }
@@ -58,7 +59,7 @@ class JobPostsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobPost $jobPost)
+    public function destroy(JobPost $job)
     {
         //
     }

@@ -12,6 +12,9 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
 
@@ -20,7 +23,7 @@
 </head>
 
 <body>
-    <div id="app" class="d-flex flex-column min-vh-100">
+    <div id="app" class="d-flex flex-column min-vh-100 bglight">
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
                 <a class="navbar-brand coprimary fw-bolder" href="{{ url("/") }}">
@@ -84,7 +87,7 @@
             </div>
         </nav>
 
-        <main class="container py-4 flex-grow-1">
+        <main class="container flex-grow-1">
             @yield("content")
         </main>
 

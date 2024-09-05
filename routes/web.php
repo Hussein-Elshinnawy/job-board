@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobPostsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/candidate/dashboard', [CandidateController::class, 'index'])->name('candidate.dashboard');
 
 Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
+
+Route::resource('/jobs', JobPostsController::class);
