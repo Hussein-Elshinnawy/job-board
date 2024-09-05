@@ -18,7 +18,6 @@ class CompanyController extends Controller
 
         // $user = Auth::user()->load('companies');
         // $company = $user->companies;
-        // // dd($user,$company);
 
         // return view("company.profile", compact('company','user'));
     }
