@@ -18,7 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/profile', [CompanyController::class, 'index'])->name('company.profile');
 });
 Route::resource('candidate', CandidateController::class);
-
+Route::resource('company', CompanyController::class);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

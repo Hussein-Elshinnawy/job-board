@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Storage;
 class CompanyController extends Controller
 {
 
     public function index()
     {
-        //
-        $user = Auth::user()->load('companies');
-        $company = $user->companies;
-        // dd($user,$company);
+        $user = Auth::user();
+        $company = $user->companies()->with('user')->first();
+        // dd($company->user->name);
+        return view('company.profile', compact('company'));
 
-        return view("company.profile", compact('company','user'));
+        // $user = Auth::user()->load('companies');
+        // $company = $user->companies;
+        // // dd($user,$company);
+
+        // return view("company.profile", compact('company','user'));
     }
 
     /**
@@ -63,6 +68,18 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+         if ($company->logo) {
+            $disk = Storage::disk('companies');
+            $companyLogo = $company->logo;
+            if ($disk->exists($companyLogo)) {
+                       $disk->delete($companyLogo);
+            }
+        }
+        $user= $company->user;
+          $user->delete();
+        $company->delete();
+
+        Auth::logout();
+        return redirect()->route('home')->with('success', 'Profile deleted successfully.');
     }
 }

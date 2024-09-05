@@ -22,8 +22,9 @@
 
                         <h4>Company Information</h4>
                         <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item"><strong>Name:</strong> {{ $user->name }}</li>
-                            <li class="list-group-item"><strong>Email:</strong> {{ $user->email }}</li>
+                            {{-- <p>test{{ $company->user->name }}</p> --}}
+                            <li class="list-group-item"><strong>Name:</strong> {{ $company->user->name }}</li>
+                            <li class="list-group-item"><strong>Email:</strong> {{  $company->user->email }}</li>
                             <li class="list-group-item"><strong>Contact Number:</strong> {{ $company->contact_phone }}</li>
                         </ul>
 
@@ -44,6 +45,11 @@
                         <div class="text-center">
                             {{-- <a href="{{ route('company.edit', $company->id) }}" class="btn btn-primary">Edit Profile</a> --}}
                             {{-- <a href="" class="btn btn-danger">Delete profile</a> --}}
+                            <form id="delete-form" action="{{ route('company.destroy', $company ) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your profile?')">Delete profile</button>
+                            </form>
                         </div>
                     </div>
                 </div>
