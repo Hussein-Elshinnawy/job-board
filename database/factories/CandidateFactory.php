@@ -18,7 +18,7 @@ class CandidateFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(1, 10),
+            'user_id' => User::factory()->state(['type' => 'candidate']),
             'phone_number' => fake()->unique()->phoneNumber(),
             'job_title' => fake()->jobTitle(),
         ];

@@ -49,17 +49,17 @@ class User extends Authenticatable
         ];
     }
 
-    public function admins(): HasOne
+    public function admin(): HasOne
     {
         return $this->hasOne(Admin::class);
     }
 
-    public function companies(): HasOne
+    public function company(): HasOne
     {
         return $this->hasOne(Company::class);
     }
 
-    public function candidates(): HasOne
+    public function candidate(): HasOne
     {
         return $this->hasOne(Candidate::class);
     }

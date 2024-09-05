@@ -18,7 +18,7 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(11, 20),
+            'user_id' => User::factory()->state(['type' => 'company']),
             'company_name' => fake()->unique()->company(),
             'description' => fake()->paragraph(),
             'contact_phone' => fake()->phoneNumber(),

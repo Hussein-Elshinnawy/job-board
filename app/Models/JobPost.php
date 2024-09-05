@@ -29,12 +29,12 @@ class JobPost extends Model
         'vacancies',
     ];
 
-    public function companies(): BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function cities(): BelongsTo
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }

@@ -34,9 +34,9 @@ class DatabaseSeeder extends Seeder
             $this->call(TechnologySeeder::class);
         }
 
-        if (User::count() == 0) {
-            $this->call(UserSeeder::class);
-        }
+        // if (User::count() == 0) {
+        //     $this->call(UserSeeder::class);
+        // }
 
         if (Candidate::count() == 0) {
             $this->call(CandidateSeeder::class);
@@ -59,5 +59,3 @@ class DatabaseSeeder extends Seeder
         }
     }
 }
-
-// $creatorIds = User::pluck("id")->toArray();
