@@ -12,9 +12,9 @@
 
                         <h4>Personal Information</h4>
                         <ul class="list-group list-group-flush mb-4">
-                            {{-- <p>{{ $candidate->user }}</p> --}}
-                            <li class="list-group-item"><strong>Name:</strong> {{ $user->name }}</li>
-                            <li class="list-group-item"><strong>Email:</strong> {{ $user->email }}</li>
+                            {{-- <p>testing: {{ $candidate->user->name }}</p> --}}
+                            <li class="list-group-item"><strong>Name:</strong> {{ $candidate->user->name }}</li>
+                            <li class="list-group-item"><strong>Email:</strong> {{ $candidate->user->email}}</li>
                             <li class="list-group-item"><strong>Phone Number:</strong> {{ $candidate->phone_number }}</li>
                         </ul>
 
@@ -23,7 +23,7 @@
                             <li class="list-group-item"><strong>Job Title:</strong> {{ $candidate->job_title }}</li>
                             <li class="list-group-item"><strong>CV:</strong>
                                 @if ($candidate->cv)
-                                    <a href="{{ asset('candidates/'.$candidate->cv) }}" target="_blank">View CV</a>
+                                    <a href="{{ asset('candidates/' . $candidate->cv) }}" target="_blank">View CV</a>
                                 @else
                                     <span>No CV uploaded</span>
                                 @endif
@@ -38,7 +38,20 @@
 
                         <div class="text-center">
                             {{-- <a href="{{ route('candidate.edit', $candidate->id) }}" class="btn btn-primary">Edit Profile</a> --}}
-                            {{-- <a href="" class="btn btn-danger">Delete profile</a> --}}
+
+                            {{-- <a href="{{ route('candidate.destroy', $candidate) }}" class="btn btn-danger"
+                                onclick="event.preventDefault(); if(confirm('Are you sure you want to delete your profile?')){ document.getElementById('delete-form').submit(); }">
+                                Delete profile
+                             </a>
+                             <form id="delete-form" action="{{ route('candidate.destroy', $candidate) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form> --}}
+                            <form id="delete-form" action="{{ route('candidate.destroy', $candidate ) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your profile?')">Delete profile</button>
+                            </form>
                         </div>
                     </div>
                 </div>
