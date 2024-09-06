@@ -31,7 +31,7 @@ class JobPostFactory extends Factory
             'qualification' => fake()->paragraphs(5, true),
             'responsibilities' => fake()->paragraphs(5, true),
             'benefits' => fake()->paragraphs(5, true),
-            'work_type' => fake()->randomElement(["onside", "remote", "hybrid", "freelance"]),
+            'work_type' => fake()->randomElement(["onsite", "remote", "hybrid", "freelance"]),
             'deadline' => fake()->dateTimeBetween('now', '+1 month'),
             'vacancies' => fake()->numberBetween(1, 20),
         ];

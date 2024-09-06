@@ -7,7 +7,7 @@
         </div> --}}
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Details</h1>
         <div class="d-flex justify-content-end mb-5">
-            <button class="btn bgprimary cowhite fw-bolder fs-4">Edit Job</button>
+            <a href="{{ route("jobs.edit", $job) }}" class="btn bgprimary cowhite fw-bolder fs-4">Edit Job</a>
         </div>
         <div class="col-lg-8">
             <div class="row mb-5">
@@ -44,6 +44,10 @@
             <div class="my-4">
                 <h2 class="fw-bold my-3 fftitle codark">Qualifications</h2>
                 <p class="">{{ $job->qualification }}</p>
+            </div>
+            <div class="my-4">
+                <h2 class="fw-bold my-3 fftitle codark">Benefits</h2>
+                <p class="">{{ $job->benefits }}</p>
             </div>
         </div>
 

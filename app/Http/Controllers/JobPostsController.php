@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreJobsRequest;
+use App\Http\Requests\UpdateJobsRequest;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
 
@@ -21,15 +23,15 @@ class JobPostsController extends Controller
      */
     public function create()
     {
-        //
+        return view("jobs.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJobsRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -45,15 +47,19 @@ class JobPostsController extends Controller
      */
     public function edit(JobPost $job)
     {
-        //
+        $workType = ["onside", "remote", "hybrid", "freelance"];
+        return view("jobs.edit", compact("job", 'workType'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JobPost $job)
+    // public function update(Request $request, JobPost $job)
+    public function update(UpdateJobsRequest $request, JobPost $job)
     {
-        //
+        // dd($job);
+        $job->update($request->all());
+        return to_route("jobs.show", compact('job'));
     }
 
     /**
