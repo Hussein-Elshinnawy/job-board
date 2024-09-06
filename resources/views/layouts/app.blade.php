@@ -26,7 +26,7 @@
 
 </head>
 
-<body>
+<body >
     <script>
         toastr.options = {
             "closeButton": true,
@@ -44,7 +44,7 @@
         @endif
     </script>
 
-    <div id="app" class="d-flex flex-column min-vh-100">
+    <div id="app" class="d-flex flex-column min-vh-100 bglight ">
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
                 <a class="navbar-brand coprimary fw-bolder" href="{{ url('/') }}">
@@ -109,8 +109,8 @@
                 </div>
             </div>
         </nav>
-
-        <main class="container py-4 flex-grow-1">
+        {{-- ? is that the correct color the content background? --}}
+        <main class="container flex-grow-1 bglightopacity">
             @yield('content')
         </main>
 
