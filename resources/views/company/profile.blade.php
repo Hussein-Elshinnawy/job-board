@@ -28,7 +28,7 @@
                         </li>
                     </ul>
 
-                    <h4>Job Details</h4>
+                    <h4>Company Details</h4>
                     <ul class="list-group list-group-flush mb-4">
                         <li class="list-group-item bgwhite"><strong>Company Name:</strong> {{ $company->company_name }}</li>
                         <li class="list-group-item bgwhite"><strong>Company description:</strong>
