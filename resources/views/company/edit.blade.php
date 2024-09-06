@@ -6,11 +6,10 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h2>Edit Candidate Profile</h2>
+                        <h2>Edit Copmany Profile</h2>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('candidate.update', $candidate) }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('company.update', $company) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
@@ -18,7 +17,7 @@
                                 <label for="name">Name </label>
                                 <input type="text" name="name"
                                     class="form-control @error('name') is-invalid @enderror" id="name"
-                                    value="{{ old('name', $candidate->user->name) }}" required>
+                                    value="{{ old('name', $company->user->name) }}" required>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -30,7 +29,7 @@
                                 <label for="email">Email </label>
                                 <input type="text" name="email"
                                     class="form-control @error('email') is-invalid @enderror" id="name"
-                                    value="{{ old('email', $candidate->user->email) }}" required>
+                                    value="{{ old('email', $company->user->email) }}" required>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -39,11 +38,11 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="phone_number">Phone Number</label>
-                                <input type="text" name="phone_number"
-                                    class="form-control  @error('phone_number') is-invalid @enderror" id="phone_number"
-                                    value="{{ old('phone_number', $candidate->phone_number) }}" required>
-                                @error('phone_number')
+                                <label for="contact_phone">Contact Phone</label>
+                                <input type="text" name="contact_phone"
+                                    class="form-control  @error('contact_phone') is-invalid @enderror" id="contact_phone"
+                                    value="{{ old('contact_phone', $company->contact_phone) }}" required>
+                                @error('contact_phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -51,11 +50,11 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="job_title">Job Title</label>
-                                <input type="text" name="job_title"
-                                    class="form-control  @error('job_title') is-invalid @enderror" id="job_title"
-                                    value="{{ old('job_title', $candidate->job_title) }}" required>
-                                @error('job_title')
+                                <label for="description">Description</label>
+                                <input type="text" name="description"
+                                    class="form-control  @error('description') is-invalid @enderror" id="description"
+                                    value="{{ old('description', $company->description) }}" required>
+                                @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -63,15 +62,19 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                @if ($candidate->cv)
-                                    <p>Current CV: <a href="{{ asset('candidates/' . $candidate->cv) }}"
-                                            target="_blank">View CV</a></p>
+                                @if ($company->logo)
+                                    <p>Current logo:
+                                        <img src="{{ asset('companies/' . $company->logo) }}" alt="company logo"
+                                            class="img-thumbnail rounded-circle object-fit-cover" width="20%"
+                                            height="20%">
+                                    </p>
                                 @endif
-                                <label for="cv">Upload CV</label>
-                                <input type="file" name="cv" class="form-control @error('cv') is-invalid @enderror"
-                                    id="cv" accept=".pdf,.doc,.docx">
-                                <small class="text-muted">Leave blank if you don't want to change the CV.</small>
-                                @error('cv')
+                                <label for="logo">Upload logo</label>
+                                <input type="file" name="logo"
+                                    class="form-control @error('logo') is-invalid @enderror" id="logo"
+                                    accept=".png,.jpg,.jpeg,.gif">
+                                {{-- <small class="text-muted">Leave blank if you don't want to change the logo.</small> --}}
+                                @error('logo')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -79,7 +82,7 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success">Update Profile</button>
-                                <a href="{{ route('candidate.profile') }}" class="btn btn-secondary">Cancel</a>
+                                <a href="{{ route('company.profile') }}" class="btn btn-secondary">Cancel</a>
                             </div>
                         </form>
                     </div>

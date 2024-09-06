@@ -82,7 +82,7 @@ class CandidateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email'=> 'required|email|max:255|unique:users,email,'.$candidate->user->id,
-            'phone_number' => 'required|string|max:15',
+            'phone_number' => 'required|string|max:15|unique:candidates,phone_number,'.$candidate->id,
             'job_title' => 'required|string|max:255',
             'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
         ]);

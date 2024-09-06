@@ -13,7 +13,7 @@
                             {{-- <p>{{asset('companies/'.$company->logo)}}</p> --}}
                             <div class="text-center mb-4">
 
-                                <img src="{{asset('companies/'.$company->logo)  }}" alt="company Picture" class="img-thumbnail rounded-circle object-fit-cover" width="20%">
+                                <img src="{{asset('companies/'.$company->logo)  }}" alt="company Picture" class="img-thumbnail rounded-circle object-fit-cover" width="20%" height="20%">
                             </div>
 
                         @else
@@ -43,13 +43,21 @@
                         </ul>
 
                         <div class="text-center">
-                            {{-- <a href="{{ route('company.edit', $company->id) }}" class="btn btn-primary">Edit Profile</a> --}}
-                            {{-- <a href="" class="btn btn-danger">Delete profile</a> --}}
-                            <form id="delete-form" action="{{ route('company.destroy', $company ) }}" method="POST">
+                            <a href="{{ route('company.edit', $company) }}" class="btn btn-success">Edit Profile</a>
+
+                            <a href="{{ route('company.destroy', $company) }}" class="btn btn-danger"
+                                onclick="event.preventDefault(); if(confirm('Are you sure you want to delete your profile?')){ document.getElementById('delete-form').submit(); }">
+                                Delete profile
+                             </a>
+                             <form id="delete-form" action="{{ route('company.destroy', $company) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                            {{-- <form id="delete-form" action="{{ route('company.destroy', $company ) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your profile?')">Delete profile</button>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>

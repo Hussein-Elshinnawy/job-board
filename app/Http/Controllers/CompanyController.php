@@ -52,6 +52,7 @@ class CompanyController extends Controller
     public function edit(Company $company)
     {
         //
+        return view('company.edit', compact('company'));
     }
 
     /**
@@ -60,6 +61,37 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         //
+        // dd($request,$company);
+          $request->validate([
+            'name' => 'required|string|max:255',
+            'email'=> 'required|email|max:255|unique:users,email,'.$company->user->id,
+            'contact_phone' => 'required|string|max:15|unique:companies,contact_phone,'.$company->id,
+            'description' => 'required|string|max:255',
+            'logo' => 'nullable|mimes:png,jpg,jpeg,gif|max:2048',
+        ]);
+        // $oldlogo=$company->logo;
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('logos', 'companies');
+
+            if ($company->logo) {
+                Storage::disk('companies')->delete($company->logo);
+            }
+
+            $company->logo = $logoPath;
+        }
+
+        $company->user->name = $request->name;
+        $company->user->email = $request->email;
+        $company->user->save();
+
+        $company->update([
+            'phone_number' => $request->phone_number,
+            'job_title' => $request->job_title,
+            // 'logo' => $logoPath,
+        ]);
+
+        return redirect()->route('company.profile')->with('success', 'Profile updated successfully.');
+
     }
 
     /**

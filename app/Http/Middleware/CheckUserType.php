@@ -14,7 +14,7 @@ class CheckUserType
         $user = Auth::user();
 
         if (!$user || $user->type !== $role) {
-            return redirect()->route('home')->with('error', 'Unauthorized access.');
+            return redirect()->route('home')->with('error', 'Unauthorized access.')->with('error', 'You\'r not authorized.');;
         }
 
         return $next($request);

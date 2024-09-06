@@ -43,7 +43,7 @@ class RegisterController extends Controller
         if (isset($data['type']) && $data['type'] === 'company') {
             $rules['company_name'] = ['required', 'string', 'max:255','unique:companies'];
             $rules['description'] = ['required', 'string', 'max:255'];
-            $rules['contact_phone'] = ['required', 'string', 'max:255','unique:companies'];
+            $rules['contact_phone'] = ['required', 'string', 'max:15','unique:companies'];
             $rules['logo'] = ['mimes:jpeg,jpg,png,gif', 'max:2048'];
 
         }
@@ -130,9 +130,9 @@ class RegisterController extends Controller
     {
 
         if ($user->type == 'candidate') {
-            return redirect()->route('candidate.profile');
+            return redirect()->route('candidate.profile')->with('success', 'welcome '. $user->name);
         } elseif ($user->type == 'company') {
-            return redirect()->route('company.profile');
+            return redirect()->route('company.profile')->with('success', 'welcome '. $user->name);
         }
 
         return redirect($this->redirectTo);
