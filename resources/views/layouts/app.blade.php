@@ -20,10 +20,37 @@
 
     <!-- Scripts -->
     @vite(["resources/sass/app.scss", "resources/js/app.js"])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
 <body>
     <div id="app" class="d-flex flex-column min-vh-100 bglight">
+<body >
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+            "timeOut": "3000"
+        };
+
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+    </script>
+
+    <div id="app" class="d-flex flex-column min-vh-100 bglight ">
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
                 <a class="navbar-brand coprimary fw-bolder" href="{{ url("/") }}">
@@ -89,10 +116,21 @@
 
         <main class="container bgwhite flex-grow-1">
             @yield("content")
+        {{-- ? is that the correct color the content background? --}}
+        <main class="container flex-grow-1 bglightopacity">
+            @yield('content')
         </main>
 
         {{-- * i removed fixed-bottom as it was hidding the div after user select register type --}}
         <footer class="container bgdark colight py-4">
+            <div class="row pt-5 colightopacity">
+                <div class="col">
+                    <ul style="list-style-type:none;" class="">
+                        <li>
+                            <h5 class="fw-bold colight">Company</h5>
+                        </li>
+        {{-- * i removed fixe-bottom as it was hidding the div after user select register type --}}
+        <footer class="container bgdark colight  py-4">
             <div class="row pt-5 colightopacity">
                 <div class="col">
                     <ul style="list-style-type:none;" class="">
@@ -118,16 +156,18 @@
                         <li>
                             <h5 class="fw-bold colight">Company</h5>
                         </li>
-
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0  link-light link-opacity-50">Home</a>
                         </li>
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">About
                                 Us</a>
                         </li>
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
                                 Us</a>
                         </li>
                     </ul>
@@ -147,6 +187,67 @@
                         </li>
                         <li>
                             &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                                Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul style="list-style-type:none;" class="">
+                        <li>
+                            <h5 class="fw-bold colight">Company</h5>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                                Us</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                                Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul style="list-style-type:none;" class="">
+                        <li>
+                            <h5 class="fw-bold colight">Company</h5>
+                        </li>
+
+                        <li>
+                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                                Us</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                                Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <ul style="list-style-type:none;" class="">
+                        <li>
+                            <h5 class="fw-bold colight">Company</h5>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                                Us</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
                                 Us</a>
                         </li>
                     </ul>
@@ -177,6 +278,37 @@
                     <span class="colightopacity"> &#169; </span> Your Site Name <span class="colightopacity"> All Rights Reserved </span>
                 </div>
                 <div></div>
+            </div>
+        </footer>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">About
+                                Us</a>
+                        </li>
+                        <li>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
+                                Us</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <hr>
+            <div>
+                <div>
+                    <span class="colightopacity"> &#169; </span> Your Site Name <span class="colightopacity"> All
+                        Rihts
+                        Reserved
+                    </span>
+                </div>
+                <div>
+
+                </div>
             </div>
         </footer>
     </div>

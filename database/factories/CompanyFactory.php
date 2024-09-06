@@ -20,7 +20,7 @@ class CompanyFactory extends Factory
         return [
             'user_id' => User::factory()->state(['type' => 'company']),
             'company_name' => fake()->unique()->company(),
-            'description' => fake()->paragraph(),
+            'description' =>fake()->catchPhrase(),
             'contact_phone' => fake()->phoneNumber(),
         ];
     }
