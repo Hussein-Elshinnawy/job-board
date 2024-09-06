@@ -43,7 +43,7 @@
                     </ul>
 
                     <div class="text-center">
-                        <a href="{{ route('company.edit', $company) }}" class="btn btn-success">Edit Profile</a>
+                        <a href="{{ route('company.edit', $company) }}" class="btn text-light bgprimary">Edit Profile</a>
 
                         <a href="{{ route('company.destroy', $company) }}" class="btn btn-danger"
                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete your profile?')){ document.getElementById('delete-form').submit(); }">
