@@ -12,7 +12,7 @@ class CompanyController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $company = $user->companies()->with('user')->first();
+        $company = $user->company()->with('user')->first();
         // dd($company->user->name);
         return view('company.profile', compact('company'));
 

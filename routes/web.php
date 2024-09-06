@@ -38,8 +38,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/candidate/dashboard', [CandidateController::class, 'index'])->name('candidate.dashboard');
+// Route::get('/candidate/dashboard', [CandidateController::class, 'index'])->name('candidate.dashboard');
 
-Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
+// Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
 
 Route::resource('/jobs', JobPostsController::class);

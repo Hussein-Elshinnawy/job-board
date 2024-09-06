@@ -16,7 +16,7 @@ class CandidateController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $candidate = $user->candidates()->with('user')->first();
+        $candidate = $user->candidate()->with('user')->first();
         // dd($candidate->user);
         return view('candidate.profile', compact('candidate'));
 

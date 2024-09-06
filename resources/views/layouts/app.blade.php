@@ -117,9 +117,6 @@
         <main class="container bgwhite flex-grow-1">
             @yield("content")
         {{-- ? is that the correct color the content background? --}}
-        <main class="container flex-grow-1 bglightopacity">
-            @yield('content')
-        </main>
 
         {{-- * i removed fixed-bottom as it was hidding the div after user select register type --}}
         <footer class="container bgdark colight py-4">
