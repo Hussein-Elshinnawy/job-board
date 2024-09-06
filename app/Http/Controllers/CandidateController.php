@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use  App\Models\User;
+use App\Models\User;
 use Storage;
 use DB;
 class CandidateController extends Controller
@@ -69,6 +69,7 @@ class CandidateController extends Controller
     public function edit(Candidate $candidate)
     {
         //
+        return view('candidate.edit', compact('candidate'));
     }
 
     /**
@@ -77,12 +78,43 @@ class CandidateController extends Controller
     public function update(Request $request, Candidate $candidate)
     {
         //
+        // dd($request, $candidate);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email'=> 'required|email|max:255|unique:users,email,'.$candidate->user->id,
+            'phone_number' => 'required|string|max:15',
+            'job_title' => 'required|string|max:255',
+            'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
+        ]);
+        // $oldcv=$candidate->cv;
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'candidates');
+
+            if ($candidate->cv) {
+                Storage::disk('candidates')->delete($candidate->cv);
+            }
+
+            $candidate->cv = $cvPath;
+        }
+
+        $candidate->user->name = $request->name;
+        $candidate->user->email = $request->email;
+        $candidate->user->save();
+
+        $candidate->update([
+            'phone_number' => $request->phone_number,
+            'job_title' => $request->job_title,
+            // 'cv' => $cvPath,
+        ]);
+
+        return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Candidate $candidate )
+    public function destroy(Candidate $candidate)
     {
 
         if ($candidate->cv) {
@@ -92,7 +124,7 @@ class CandidateController extends Controller
                 $disk->delete($candidateCv);
             }
         }
-        $user= $candidate->user;
+        $user = $candidate->user;
         // dd($user, $candidate);
         $user->delete();
         $candidate->delete();

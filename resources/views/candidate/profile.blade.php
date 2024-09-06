@@ -37,21 +37,21 @@
                         </ul>
 
                         <div class="text-center">
-                            {{-- <a href="{{ route('candidate.edit', $candidate->id) }}" class="btn btn-primary">Edit Profile</a> --}}
+                            <a href="{{ route('candidate.edit', $candidate) }}" class="btn btn-success">Edit Profile</a>
 
-                            {{-- <a href="{{ route('candidate.destroy', $candidate) }}" class="btn btn-danger"
+                            <a href="{{ route('candidate.destroy', $candidate) }}" class="btn btn-danger"
                                 onclick="event.preventDefault(); if(confirm('Are you sure you want to delete your profile?')){ document.getElementById('delete-form').submit(); }">
                                 Delete profile
                              </a>
                              <form id="delete-form" action="{{ route('candidate.destroy', $candidate) }}" method="POST" style="display: none;">
                                 @csrf
                                 @method('DELETE')
-                            </form> --}}
-                            <form id="delete-form" action="{{ route('candidate.destroy', $candidate ) }}" method="POST">
+                            </form>
+                            {{-- <form id="delete-form" action="{{ route('candidate.destroy', $candidate ) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your profile?')">Delete profile</button>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>
