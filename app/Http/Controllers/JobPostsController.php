@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobsRequest;
 use App\Http\Requests\UpdateJobsRequest;
-use App\Models\Category;
 use App\Models\City;
+use App\Models\Category;
 use App\Models\Application;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
@@ -27,6 +27,8 @@ class JobPostsController extends Controller
      */
     public function create()
     {
+        $cities = City::all();
+        return view("jobs.create", compact("cities"));
         $cities = City::all();
         return view("jobs.create", compact("cities"));
     }
@@ -59,6 +61,9 @@ class JobPostsController extends Controller
         $cities = City::all();
         $workType = ["onsite", "remote", "hybrid", "freelance"];
         return view("jobs.edit", compact("job", 'workType', 'cities'));
+        $cities = City::all();
+        $workType = ["onsite", "remote", "hybrid", "freelance"];
+        return view("jobs.edit", compact("job", 'workType', 'cities'));
     }
 
     /**
@@ -67,6 +72,7 @@ class JobPostsController extends Controller
     // public function update(Request $request, JobPost $job)
     public function update(UpdateJobsRequest $request, JobPost $job)
     {
+        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
         dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
         $job->update($request->all());
         return to_route("jobs.show", compact('job'));
