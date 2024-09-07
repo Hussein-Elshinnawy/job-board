@@ -85,8 +85,8 @@ class CompanyController extends Controller
         $company->user->save();
 
         $company->update([
-            'phone_number' => $request->phone_number,
-            'job_title' => $request->job_title,
+            'contact_phone' => $request->contact_phone,
+            'description' => $request->description,
             // 'logo' => $logoPath,
         ]);
 
