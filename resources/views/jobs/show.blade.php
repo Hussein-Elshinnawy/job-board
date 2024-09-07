@@ -1,19 +1,15 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
+@section("content")
     <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Details</h1>
-    @isset($errors)
-        @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">{{ $error }}</div>
-        @endforeach
-    @endisset
-    <div class="row my-5 px-3">
-
+    <div class="row mt-3 mb-5 px-3">
+        <div class="d-flex justify-content-end mb-5">
+            <a href="{{ route("jobs.index") }}" class="btn bgprimary cowhite fw-bolder fs-4">Back To All Jobs</a>
+        </div>
         <div class="col-lg-8">
             <div class="row mb-5">
                 <div class="col-2">
-                    <img src="{{ asset('assets/images/company/logo.jpg') }}" width="100" height="100"
-                        style="border: 1px solid #dee2e6 !important">
+                    <img src="{{ asset("assets/images/company/logo.jpg") }}" width="100" height="100" style="border: 1px solid #dee2e6 !important">
                 </div>
                 <div class="col-10">
                     <h2 class="fftitle codark fw-bold">{{ $job->title }}</h2>
@@ -24,14 +20,12 @@
                     </span>
                     <span class=" me-3">
                         <i class="fa-regular fa-clock coprimary me-1"></i>
-                        {{ $job->work_type }}
+                        {{ $job->work_type == "onsite" ? "On Site" : ($job->work_type == "remote" ? "Remote" : ($job->work_type == "hybrid" ? "Hybrid" : "Freelance")) }}
                     </span>
                     <span class=" me-3">
                         <i class="fa-regular fa-money-bill-1 coprimary me-1"></i>
                         {{ $job->min_salary }} - {{ $job->max_salary }}
                     </span>
-                    {{-- <p class="">{{ \Illuminate\Support\Str::words($job->description, 10) }}</p> --}}
-                    {{-- <h4>descripttion: {{ strlen($job->description) > 50 ? substr($job->description, 0, 100) . ".." : $job->description }}</h4> --}}
                 </div>
             </div>
             <div class="my-4">
@@ -53,11 +47,11 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="bglight px-3 mb-4">
+            <div class="bglight px-5 py-4 mb-4">
                 <h3 class="fw-bold my-4 fftitle codark">Job Summary</h3>
                 <p class="my-4">
                     <i class="fa-solid fa-chevron-right coprimary me-2"></i>
-                    Published On: {{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}
+                    Published On: {{ \Carbon\Carbon::parse($job->created_at)->format("d M, Y") }}
                 </p>
                 <p class="my-4">
                     <i class="fa-solid fa-chevron-right coprimary me-2"></i>
@@ -65,7 +59,8 @@
                 </p>
                 <p class="my-4">
                     <i class="fa-solid fa-chevron-right coprimary me-2"></i>
-                    Job Nature: {{ $job->work_type }}
+                    Job Nature:
+                    {{ $job->work_type == "onsite" ? "On Site" : ($job->work_type == "remote" ? "Remote" : ($job->work_type == "hybrid" ? "Hybrid" : "Freelance")) }}
                 </p>
                 <p class="my-4">
                     <i class="fa-solid fa-chevron-right coprimary me-2"></i>
@@ -77,7 +72,7 @@
                 </p>
                 <p class="my-4">
                     <i class="fa-solid fa-chevron-right coprimary me-2"></i>
-                    Date Line: {{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}
+                    Date Line: {{ \Carbon\Carbon::parse($job->deadline)->format("d M, Y") }}
                 </p>
             </div>
             <div class="bglight px-5 py-4 ">
@@ -86,32 +81,28 @@
                     {{ $job->company->description }}
                 </p>
             </div>
-            {{--  --}}
-            {{--  --}}
+
             <div class="row justify-content-center px-3">
-                @if (isset(Auth::user()->company ) && Auth::user()->company->id == $job->company_id)
-                    <a href="{{ route('application.index', $job) }}"
-                        class="btn bgsecondary cowhite fw-bolder fs-5 my-2">View
-                        Applications</a>
-                    <a href="{{ route('jobs.edit', $job) }}" class="btn bgprimary cowhite fw-bolder fs-5 my-2">Edit
-                        Job</a>
-                    <form class="row p-0 m-0" action="{{ route('jobs.destroy', $job->id) }}" method="post">
-                        @method('DELETE')
+                @if (isset(Auth::user()->company) && Auth::user()->company->id == $job->company_id)
+                    <a href="{{ route("application.index", $job) }}" class="btn bgsecondary cowhite fw-bolder fs-5 my-2">View Applications</a>
+                    <a href="{{ route("jobs.edit", $job) }}" class="btn bgprimary cowhite fw-bolder fs-5 my-2">Edit Job</a>
+                    <form class="row p-0 m-0" action="{{ route("jobs.destroy", $job->id) }}" method="post">
+                        @method("DELETE")
                         @csrf
                         <button type="submit" class="btn btn-danger cowhite fw-bolder fs-5 my-2">Delete</button>
                     </form>
                 @endif
                 @if (isset(Auth::user()->candidate))
                     @if (isset($application))
-                        <form class="row" action="{{ route('application.destroy', $application->id) }}" method="post">
-                            @method('DELETE')
+                        <form class="row" action="{{ route("application.destroy", $application->id) }}" method="post">
+                            @method("DELETE")
                             @csrf
                             <h5 class="text-center text-success ">You have applied for this Job</h5>
                             <input type="hidden" name="job_post_id" value="{{ $job->id }}">
                             <button type="submit" class="btn btn-danger cowhite fw-bolder fs-5 my-3">Cancel</button>
                         </form>
                     @else
-                        <form class="row" action="{{ route('application.store') }}" method="post">
+                        <form class="row" action="{{ route("application.store") }}" method="post">
                             @csrf
                             <input type="hidden" name="job_post_id" value="{{ $job->id }}">
                             <button type="submit" class="btn bgprimary cowhite fw-bolder fs-5 my-3">Apply Now</button>

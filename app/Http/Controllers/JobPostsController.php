@@ -29,8 +29,6 @@ class JobPostsController extends Controller
     {
         $cities = City::all();
         return view("jobs.create", compact("cities"));
-        $cities = City::all();
-        return view("jobs.create", compact("cities"));
     }
 
     /**
@@ -38,7 +36,11 @@ class JobPostsController extends Controller
      */
     public function store(StoreJobsRequest $request)
     {
-        dd($request->all());
+        $data = $request->all();
+        $data['company_id'] = Auth::user()->company->id;
+        // dd($data);
+        $job = JobPost::create($data);
+        return to_route("jobs.show", $job);
     }
 
     /**
@@ -61,9 +63,6 @@ class JobPostsController extends Controller
         $cities = City::all();
         $workType = ["onsite", "remote", "hybrid", "freelance"];
         return view("jobs.edit", compact("job", 'workType', 'cities'));
-        $cities = City::all();
-        $workType = ["onsite", "remote", "hybrid", "freelance"];
-        return view("jobs.edit", compact("job", 'workType', 'cities'));
     }
 
     /**
@@ -72,8 +71,6 @@ class JobPostsController extends Controller
     // public function update(Request $request, JobPost $job)
     public function update(UpdateJobsRequest $request, JobPost $job)
     {
-        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
-        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
         $job->update($request->all());
         return to_route("jobs.show", compact('job'));
     }
@@ -83,7 +80,8 @@ class JobPostsController extends Controller
      */
     public function destroy(JobPost $job)
     {
-        dd($job);
+        // dd($job);
+
     }
     public function filter(Request $request)
     {

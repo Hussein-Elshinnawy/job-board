@@ -21,7 +21,7 @@ class JobPost extends Model
         'description',
         'min_salary',
         'max_salary',
-        'qualification',
+        'qualifications',
         'responsibilities',
         'benefits',
         'work_type',
