@@ -2,6 +2,11 @@
 
 @section("content")
     <div class="py-5 px-3">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger my-3">{{ $error }}</div>
+            @endforeach
+        @endif
         <form action="{{ route("jobs.update", $job) }}" method="POST">
             @csrf
             @method("PUT")
@@ -21,7 +26,17 @@
                 <select class="form-select d-inline w-auto" id="work_type" name="work_type">
                     @foreach ($workType as $work)
                         <option {{ $work == $job->work_type ? "selected" : "" }} value="{{ $work }}">
-                            {{ (($work == "onsite" ? "On Site" : $work == "remote") ? "Remote" : $work == "hybrid") ? "Hybrid" : "Freelance" }}</option>
+                            {{ $work == "onsite" ? "On Site" : ($work == "remote" ? "Remote" : ($work == "hybrid" ? "Hybrid" : "Freelance")) }}
+                            {{-- @if ($work == "onsite")
+                                On Site
+                            @elseif ($work == "remote")
+                                Remote
+                            @elseif ($work == "hybrid")
+                                Hybrid
+                            @else
+                                Freelance
+                            @endif --}}
+                        </option>
                     @endforeach
                 </select>
                 @error("work_type")
@@ -32,10 +47,17 @@
                 <label for="city" class="">City:</label>
                 <select class="form-select d-inline w-auto" id="city" name="city">
                     @foreach ($cities as $city)
-                        <option {{ $city->id == $job->city_id ? "selected" : "" }} value="{{ $city->id }}">{{ $city->name }}</option>
+                        <option {{ $city->id == $job->city_id ? "selected" : "" }} value="{{ $city->name }}">{{ $city->name }}</option>
                     @endforeach
                 </select>
                 @error("city")
+                    <div class="alert alert-danger my-3">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="vacancies" class="form-label">Vacancies:</label>
+                <input type="number" class="form-control d-inline-block w-auto" id="vacancies" name="vacancies" value="{{ $job->vacancies }}">
+                @error("vacancies")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>

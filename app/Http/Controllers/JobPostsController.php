@@ -50,7 +50,7 @@ class JobPostsController extends Controller
     public function edit(JobPost $job)
     {
         $cities = City::all();
-        $workType = ["onside", "remote", "hybrid", "freelance"];
+        $workType = ["onsite", "remote", "hybrid", "freelance"];
         return view("jobs.edit", compact("job", 'workType', 'cities'));
     }
 
@@ -60,7 +60,7 @@ class JobPostsController extends Controller
     // public function update(Request $request, JobPost $job)
     public function update(UpdateJobsRequest $request, JobPost $job)
     {
-        // dd($job);
+        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
         $job->update($request->all());
         return to_route("jobs.show", compact('job'));
     }
