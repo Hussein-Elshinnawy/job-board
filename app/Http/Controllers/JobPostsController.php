@@ -83,6 +83,25 @@ class JobPostsController extends Controller
         // dd($job);
 
     }
+
+    public function trashed(JobPost $job)
+    {
+        $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', Auth::user()->company->id)->get();
+        return view("jobs.trashed", compact("softDeletedJobs"));
+    }
+
+    public function restore(JobPost $job)
+    {
+        // dd($job);
+
+    }
+
+    public function forceDelete(JobPost $job)
+    {
+        // dd($job);
+
+    }
+
     public function filter(Request $request)
     {
         // dd($request);
@@ -118,6 +137,7 @@ class JobPostsController extends Controller
 
         return view('jobs.search', compact('jobs', 'cities', 'categories'));
     }
+
     public function search()
     {
         $categories = Category::all();
