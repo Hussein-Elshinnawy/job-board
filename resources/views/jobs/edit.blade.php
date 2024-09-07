@@ -61,9 +61,9 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="qualification" class="form-label">Qualifications:</label>
-                <textarea class="form-control" id="qualification" name="qualification" rows="10">{{ $job->qualification }}</textarea>
-                @error("qualification")
+                <label for="qualifications" class="form-label">Qualifications:</label>
+                <textarea class="form-control" id="qualifications" name="qualifications" rows="10">{{ $job->qualifications }}</textarea>
+                @error("qualifications")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>

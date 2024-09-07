@@ -28,7 +28,7 @@ class JobPostFactory extends Factory
             'description' => fake()->paragraphs(5, true),
             'min_salary' => 1000.0,
             'max_salary' => 10000.0,
-            'qualification' => fake()->paragraphs(5, true),
+            'qualifications' => fake()->paragraphs(5, true),
             'responsibilities' => fake()->paragraphs(5, true),
             'benefits' => fake()->paragraphs(5, true),
             'work_type' => fake()->randomElement(["onsite", "remote", "hybrid", "freelance"]),
