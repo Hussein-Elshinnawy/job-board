@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobsRequest;
 use App\Http\Requests\UpdateJobsRequest;
+use App\Models\City;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,8 @@ class JobPostsController extends Controller
      */
     public function create()
     {
-        return view("jobs.create");
+        $cities = City::all();
+        return view("jobs.create", compact("cities"));
     }
 
     /**
@@ -47,8 +49,9 @@ class JobPostsController extends Controller
      */
     public function edit(JobPost $job)
     {
+        $cities = City::all();
         $workType = ["onside", "remote", "hybrid", "freelance"];
-        return view("jobs.edit", compact("job", 'workType'));
+        return view("jobs.edit", compact("job", 'workType', 'cities'));
     }
 
     /**
