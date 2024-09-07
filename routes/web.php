@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobPostsController;
 use Illuminate\Support\Facades\Auth;
@@ -46,3 +47,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/jobs', JobPostsController::class);
 
 Route::resource('/application', ApplicationController::class);
+Route::resource('/comment', CommentController::class);

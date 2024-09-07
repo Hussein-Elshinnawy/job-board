@@ -1,41 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row py-5 px-3">
-
-        @if (Auth::user()->type == 'company' && Auth::user()->company->id == $job->company_id)
-            <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Details</h1>
-            <div class="d-flex justify-content-end mb-5">
-                <a href="{{ route('jobs.edit', $job) }}" class="btn bgprimary cowhite fw-bolder fs-4">Edit Job</a>
-                <a href="{{ route('application.index', $job) }}" class="btn bgsecondary cowhite fw-bolder fs-4 mx-3">View
-                    Applications</a>
-            </div>
-        @endif
-        @if (Auth::user()->type == 'candidate')
-            @if (isset($application))
-                <form action="{{ route('application.destroy', $application->id) }}" method="post">
-                    @method('DELETE')
-                    @csrf
-                    <input type="hidden" name="job_post_id" value="{{ $job->id }}">
-                    <div class="d-flex justify-content-end mb-5">
-                        <button type="submit" class="btn btn-danger cowhite fw-bolder fs-4">Cancel</button>
-                    </div>
-                </form>
-            @else
-                <form action="{{ route('application.store') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="job_post_id" value="{{ $job->id }}">
-                    <div class="d-flex justify-content-end mb-5">
-                        <button type="submit" class="btn bgprimary cowhite fw-bolder fs-4">Apply Now</button>
-                    </div>
-                </form>
-            @endif
-        @endif
-        @isset($errors)
-            @foreach ($errors->all() as $error)
-                <div class="alert alert-danger">{{ $error }}</div>
-            @endforeach
-        @endisset
+    <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Details</h1>
+    @isset($errors)
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+    @endisset
+    <div class="row my-5 px-3">
 
         <div class="col-lg-8">
             <div class="row mb-5">
@@ -81,7 +53,7 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="bglight px-5 py-4  mb-4">
+            <div class="bglight px-3 mb-4">
                 <h3 class="fw-bold my-4 fftitle codark">Job Summary</h3>
                 <p class="my-4">
                     <i class="fa-solid fa-chevron-right coprimary me-2"></i>
@@ -114,13 +86,40 @@
                     {{ $job->company->description }}
                 </p>
             </div>
+            {{--  --}}
+            {{--  --}}
+            <div class="row justify-content-center px-3">
+                @if (Auth::user()->type == 'company' && Auth::user()->company->id == $job->company_id)
+                    <a href="{{ route('jobs.edit', $job) }}" class="btn bgprimary cowhite fw-bolder fs-5 my-3">Edit
+                        Job</a>
+                    <a href="{{ route('application.index', $job) }}"
+                        class="btn bgsecondary cowhite fw-bolder fs-5 mb-3">View
+                        Applications</a>
+                @endif
+                @if (Auth::user()->type == 'candidate')
+                    @if (isset($application))
+                        <form class="row" action="{{ route('application.destroy', $application->id) }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <h5 class="text-center text-success ">You have applied for this Job</h5>
+                            <input type="hidden" name="job_post_id" value="{{ $job->id }}">
+                            <button type="submit" class="btn btn-danger cowhite fw-bolder fs-5 my-3">Cancel</button>
+                        </form>
+                    @else
+                        <form class="row" action="{{ route('application.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="job_post_id" value="{{ $job->id }}">
+                            <button type="submit" class="btn bgprimary cowhite fw-bolder fs-5 my-3">Apply Now</button>
+                        </form>
+                    @endif
+                @endif
+            </div>
         </div>
-
+        <div id="spacer" class="my-4"></div>
+        <x-comment :jobid="$job->id"> </x-comment>
+        <div id="spacer" class="my-3"></div>
         @foreach ($job->comments as $comment)
-            <x-comment :addNew="false" :comment="$comment"> </x-comment>
+            <x-comment :comment="$comment"> </x-comment>
         @endforeach
-        @if (Auth::user()->type == 'candidate')
-            <x-comment :addNew="true"> </x-comment>
-        @endif
     </div>
 @endsection

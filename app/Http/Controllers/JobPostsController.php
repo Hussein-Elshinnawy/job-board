@@ -41,9 +41,8 @@ class JobPostsController extends Controller
      */
     public function show(JobPost $job)
     {
-
         $application = null;
-        if (Auth::user()->user_type == 'candidate') {
+        if (Auth::user()->type == 'candidate') {
             $application =  Application::where('job_post_id', $job->id)->where('candidate_id', Auth::user()->candidate->id)->first();
         }
         return view("jobs.show", compact("job", 'application'));

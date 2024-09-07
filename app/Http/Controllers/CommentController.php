@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class CommentController extends Controller
 {
@@ -28,7 +30,17 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['candidate_id'] = Auth::user()->candidate->id;
+        $request->validate(
+            [
+                'candidate_id' => 'required',
+                'job_post_id' => 'required',
+                'body' => 'required|string',
+            ]
+        );
+
+        Comment::create($request->all());
+        return redirect()->back()->with('success', 'Comment added successfully');
     }
 
     /**
@@ -47,19 +59,33 @@ class CommentController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $request['candidate_id'] = Auth::user()->candidate->id;
+        $request->validate(
+            [
+                'candidate_id' => ['required', Rule::prohibitedIf(function () use ($comment) {
+                    return
+                        $comment->candidate_id !== Auth::user()->candidate->id;
+                })],
+                'body' => 'required|string',
+            ],
+            [
+                'candidate_id.prohibited' => 'You are not allowed to edit this comment',
+            ]
+        );
+        // dd($request->all(), $comment);
+        $comment->update($request->all());
+        return redirect()->back()->with('success', 'Comment updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Comment $comment)
     {
-        //
+        if ($comment->candidate_id !== Auth::user()->candidate->id) {
+            return redirect()->back()->with('error', 'You are not allowed to delete this comment');
+        }
+        $comment->delete();
+        return redirect()->back()->with('success', 'Comment deleted successfully');
     }
 }

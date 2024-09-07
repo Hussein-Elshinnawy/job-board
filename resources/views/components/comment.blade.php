@@ -1,39 +1,84 @@
-@props(['addNew' => false, 'comment' => null])
-
+@props(['comment' => null, 'jobid' => null])
 <div class="textarea-container my-2">
-    <textarea id="myTextarea" class="form-control" placeholder="Write a comment" rows="3" cols="10"
-        {{ $addNew ? null : 'disabled' }}>{{ $comment?->body }}</textarea>
-
-    <!-- Dropdown for more options -->
-    @if (!$addNew)
-        <div class="dropdown more-options">
-            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
-                aria-expanded="false">
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Report</a></li>
-                @if (Auth::user()->type == 'candidate' && $comment?->candidate_id == Auth::user()->candidate->id)
-                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                @endif
-
-            </ul>
-        </div>
-    @else
-        @if (Auth::user()->type == 'candidate')
-            <div class="d-flex justify-content-start mt-3">
-                <button class="btn btn-primary">Save</button>
+    @if (isset($comment))
+        {{--  SHOW +/- EDIT OLD COMMENTS --}}
+        <?php $isAuthurized = Auth::user()->type == 'candidate' && $comment?->candidate_id == Auth::user()->candidate->id; ?>
+        @if (!$isAuthurized)
+            {{-- Only Show and report --}}
+            <textarea class="myTextarea form-control" disabled rows="3" cols="10">{{ $comment?->body }}</textarea>
+            <div class="dropdown more-options">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Report</a></li>
+                </ul>
             </div>
+            <span class="by-you"> {{$comment->candidate->user->name}} </span>
+
+        @else
+            {{-- Show & EDIT & DELETE --}}
+            <form action="{{ route('comment.update', $comment?->id) }}" method="post">
+                @csrf
+                @method('PATCH')
+                <textarea id="myTextarea-{{ $comment?->id }}" name="body" disabled class="form-control" rows="3"
+                    cols="10">{{ $comment?->body }}</textarea>
+            </form>
+            <div class="dropdown more-options">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Report</a></li>
+                    <li><button class="dropdown-item" onclick="edit('myTextarea-' + {{ $comment?->id }})">Edit</button>
+                    </li>
+                    <form action="{{ route('comment.destroy', $comment?->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <li><button type="submit" class="dropdown-item">Delete</button></li>
+                    </form>
+                </ul>
+            </div>
+            <span class="by-you coprimary"> {{$comment->candidate->user->name}} </span>
         @endif
+    @elseif (Auth::user()->type == 'candidate')
+        {{--  ADD NEW COMMENT if user is candidate --}}
+        <form action="{{ route('comment.store') }}" method="post">
+            @csrf
+            <input type="hidden" name="job_post_id" value="{{ $jobid }}">
+            <textarea class="myTextarea form-control" name="body" placeholder="Add comment for this job" rows="3"
+                cols="10"></textarea>
+            <button type="submit" class="btn btn-primary m-3 px-5">Save</button>
+        </form>
+
     @endif
 </div>
+
+<script>
+    function edit($id) {
+        const saveBtn = document.createElement('button');
+        saveBtn.type = 'submit';
+        saveBtn.innerHTML = 'Update';
+        saveBtn.classList.add('btn', 'btn-primary', 'm-3', 'px-5');
+        var txtArea = document.getElementById($id);
+        txtArea.removeAttribute('disabled');
+        txtArea.focus();
+        console.log(txtArea.parentNode);
+        txtArea.parentNode.appendChild(saveBtn);
+    }
+</script>
+
+
 <style>
     .textarea-container {
         position: relative;
         display: inline-block;
+        width: 68%;
+        padding-right: 15px;
+
     }
 
-    #myTextarea {
+    .myTextarea {
         width: 100%;
         padding-right: 40px;
         /* Add space for the three dots */
@@ -43,6 +88,15 @@
     .more-options {
         position: absolute;
         top: 0px;
-        right: 30px;
+        right: 10px;
+    }
+
+    .by-you {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        padding-right: 10px;
+        font-size: 10px !important;
+        font-style: italic;
     }
 </style>
