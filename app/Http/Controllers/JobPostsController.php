@@ -45,7 +45,7 @@ class JobPostsController extends Controller
     public function show(JobPost $job)
     {
         $application = null;
-        if (Auth::user()->type == 'candidate') {
+        if (isset(Auth::user()->candidate)) {
             $application =  Application::where('job_post_id', $job->id)->where('candidate_id', Auth::user()->candidate->id)->first();
         }
         return view("jobs.show", compact("job", 'application'));
@@ -77,7 +77,7 @@ class JobPostsController extends Controller
      */
     public function destroy(JobPost $job)
     {
-        //
+        dd($job);
     }
     public function filter(Request $request)
     {
@@ -92,7 +92,7 @@ class JobPostsController extends Controller
                 $q->where('title', 'like', "%{$keywords}%")
                     ->orWhere('work_type', 'like', "%{$keywords}%")
                     ->orWhere('responsibilities', 'like', "%{$keywords}%")
-                    ;
+                ;
             });
             // dd($query);
         }
@@ -112,7 +112,7 @@ class JobPostsController extends Controller
         $categories = Category::all();
         $cities = City::all();
 
-        return view('jobs.search', compact('jobs','cities','categories'));
+        return view('jobs.search', compact('jobs', 'cities', 'categories'));
     }
     public function search()
     {
