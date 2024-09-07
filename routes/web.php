@@ -44,7 +44,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
 
+Route::get('/jobs/search', [JobPostsController::class, 'search'])->name('jobs.search');
+Route::get('/jobs/filter', [JobPostsController::class, 'filter'])->name('jobs.filter');
 Route::resource('/jobs', JobPostsController::class);
+
 
 Route::resource('/application', ApplicationController::class);
 Route::resource('/comment', CommentController::class);

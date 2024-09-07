@@ -1,18 +1,20 @@
-@extends("layouts.app")
+@extends('layouts.app')
 
-@section("title")
+@section('title')
     All Jobs
 @endsection
 
-@section("content")
+@section('content')
     <div class="py-3">
+        <a href="{{ route('jobs.search') }}"> search</a>
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Listing</h1>
         @foreach ($jobs as $job)
             <div class="m-5 p-4 job-item">
-                <a href="{{ route("jobs.show", $job) }}" class="text-decoration-none cogrey">
+                <a href="{{ route('jobs.show', $job) }}" class="text-decoration-none cogrey">
                     <div class="row">
                         <div class="col-2">
-                            <img src="{{ asset("assets/images/company/logo.jpg") }}" width="100" height="100" style="border: 1px solid #dee2e6 !important">
+                            <img src="{{ asset('assets/images/company/logo.jpg') }}" width="100" height="100"
+                                style="border: 1px solid #dee2e6 !important">
                         </div>
                         <div class="col-7">
                             <h4 class="codark fftitle">{{ $job->title }}</h4>
@@ -37,7 +39,7 @@
                             <p class="me-4">
                                 <i class="fa-solid fa-calendar-days coprimary me-1"></i>
                                 Date Line:
-                                {{ \Carbon\Carbon::parse($job->deadline)->format("d M Y") }}
+                                {{ \Carbon\Carbon::parse($job->deadline)->format('d M Y') }}
                             </p>
 
                         </div>

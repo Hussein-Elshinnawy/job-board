@@ -33,7 +33,12 @@
             </div>
             <div class="mb-3 ">
                 <label for="city" class="">City:</label>
-                <input type="text" class="form-control w-auto d-inline-block" id="city" name="city" value="{{ old("city") }}">
+                <select class="form-select d-inline w-auto" id="city" name="city">
+                    <option selected disabled>Please Select City</option>
+                    @foreach ($cities as $city)
+                        <option {{ old("city") == $city->id ? "selected" : "" }} value="{{ $city->id }}">{{ $city->name }}</option>
+                    @endforeach
+                </select>
                 @error("city")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror

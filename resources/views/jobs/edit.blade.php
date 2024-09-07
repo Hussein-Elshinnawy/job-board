@@ -2,12 +2,17 @@
 
 @section("content")
     <div class="py-5 px-3">
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger my-3">{{ $error }}</div>
+            @endforeach
+        @endif
         <form action="{{ route("jobs.update", $job) }}" method="POST">
             @csrf
             @method("PUT")
             <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Edit</h1>
             <div class="d-flex justify-content-end mb-5">
-                <a href="{{ route("jobs.show", $job) }}" class="btn bgprimary cowhite fw-bolder fs-4">Back to Post</a>
+                <a href="{{ route("jobs.show", $job) }}" class="btn bg-warning fw-bolder fs-4">Back to Post</a>
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Title:</label>
@@ -20,7 +25,18 @@
                 <label for="work_type" class="form-label d-inline">Work Type:</label>
                 <select class="form-select d-inline w-auto" id="work_type" name="work_type">
                     @foreach ($workType as $work)
-                        <option {{ $work == $job->work_type ? "selected" : "" }} value="{{ $work }}">{{ $work }}</option>
+                        <option {{ $work == $job->work_type ? "selected" : "" }} value="{{ $work }}">
+                            {{ $work == "onsite" ? "On Site" : ($work == "remote" ? "Remote" : ($work == "hybrid" ? "Hybrid" : "Freelance")) }}
+                            {{-- @if ($work == "onsite")
+                                On Site
+                            @elseif ($work == "remote")
+                                Remote
+                            @elseif ($work == "hybrid")
+                                Hybrid
+                            @else
+                                Freelance
+                            @endif --}}
+                        </option>
                     @endforeach
                 </select>
                 @error("work_type")
@@ -29,8 +45,19 @@
             </div>
             <div class="mb-3 ">
                 <label for="city" class="">City:</label>
-                <input type="text" class="form-control w-auto d-inline-block" id="city" name="city" value="{{ $job->city->name }}">
+                <select class="form-select d-inline w-auto" id="city" name="city">
+                    @foreach ($cities as $city)
+                        <option {{ $city->id == $job->city_id ? "selected" : "" }} value="{{ $city->name }}">{{ $city->name }}</option>
+                    @endforeach
+                </select>
                 @error("city")
+                    <div class="alert alert-danger my-3">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="vacancies" class="form-label">Vacancies:</label>
+                <input type="number" class="form-control d-inline-block w-auto" id="vacancies" name="vacancies" value="{{ $job->vacancies }}">
+                @error("vacancies")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>
@@ -61,9 +88,9 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="qualification" class="form-label">Qualifications:</label>
-                <textarea class="form-control" id="qualification" name="qualification" rows="10">{{ $job->qualification }}</textarea>
-                @error("qualification")
+                <label for="qualifications" class="form-label">Qualifications:</label>
+                <textarea class="form-control" id="qualifications" name="qualifications" rows="10">{{ $job->qualifications }}</textarea>
+                @error("qualifications")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>

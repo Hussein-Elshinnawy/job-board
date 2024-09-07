@@ -22,10 +22,10 @@ return new class extends Migration
             $table->text('description');
             $table->float('min_salary');
             $table->float('max_salary');
-            $table->text('qualification');
+            $table->text('qualifications');
             $table->text('responsibilities');
             $table->text('benefits');
-            $table->enum('work_type', ["onside", "remote", "hybrid", "freelance"]);
+            $table->enum('work_type', ["onsite", "remote", "hybrid", "freelance"]);
             $table->date('deadline');
             $table->tinyInteger('vacancies');
             $table->timestamps();

@@ -44,7 +44,7 @@
             </div>
             <div class="my-4">
                 <h2 class="fw-bold my-3 fftitle codark">Qualifications</h2>
-                <p class="">{{ $job->qualification }}</p>
+                <p class="">{{ $job->qualifications }}</p>
             </div>
             <div class="my-4">
                 <h2 class="fw-bold my-3 fftitle codark">Benefits</h2>

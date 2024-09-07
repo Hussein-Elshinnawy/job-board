@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobsRequest;
 use App\Http\Requests\UpdateJobsRequest;
+use App\Models\Category;
+use App\Models\City;
 use App\Models\Application;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
@@ -25,7 +27,8 @@ class JobPostsController extends Controller
      */
     public function create()
     {
-        return view("jobs.create");
+        $cities = City::all();
+        return view("jobs.create", compact("cities"));
     }
 
     /**
@@ -53,8 +56,9 @@ class JobPostsController extends Controller
      */
     public function edit(JobPost $job)
     {
-        $workType = ["onside", "remote", "hybrid", "freelance"];
-        return view("jobs.edit", compact("job", 'workType'));
+        $cities = City::all();
+        $workType = ["onsite", "remote", "hybrid", "freelance"];
+        return view("jobs.edit", compact("job", 'workType', 'cities'));
     }
 
     /**
@@ -63,7 +67,7 @@ class JobPostsController extends Controller
     // public function update(Request $request, JobPost $job)
     public function update(UpdateJobsRequest $request, JobPost $job)
     {
-        // dd($job);
+        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
         $job->update($request->all());
         return to_route("jobs.show", compact('job'));
     }
@@ -74,5 +78,46 @@ class JobPostsController extends Controller
     public function destroy(JobPost $job)
     {
         //
+    }
+    public function filter(Request $request)
+    {
+        // dd($request);
+        $query = JobPost::query();
+        // dd($query);
+
+        if ($request->filled('keywords')) {
+            // dd('test');
+            $keywords = $request->input('keywords');
+            $query->where(function ($q) use ($keywords) {
+                $q->where('title', 'like', "%{$keywords}%")
+                    ->orWhere('work_type', 'like', "%{$keywords}%")
+                    ->orWhere('responsibilities', 'like', "%{$keywords}%")
+                    ;
+            });
+            // dd($query);
+        }
+
+        if ($request->filled('city_id')) {
+            $query->where('city_id', $request->input('city_id'));
+            // dd($query);
+        }
+
+        // // Filter by category
+        // if ($request->filled('category')) {
+        //     $query->where('category_id', $request->input('category'));
+        // }
+
+        $jobs = $query->where('is_active', 1)->get();
+        // dd($jobs);
+        $categories = Category::all();
+        $cities = City::all();
+
+        return view('jobs.search', compact('jobs','cities','categories'));
+    }
+    public function search()
+    {
+        $categories = Category::all();
+        $cities = City::all();
+        return view('jobs.search', compact('categories', 'cities'));
     }
 }
