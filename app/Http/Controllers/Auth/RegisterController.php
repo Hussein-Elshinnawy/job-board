@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -41,11 +42,10 @@ class RegisterController extends Controller
         }
 
         if (isset($data['type']) && $data['type'] === 'company') {
-            $rules['company_name'] = ['required', 'string', 'max:255','unique:companies'];
+            $rules['company_name'] = ['required', 'string', 'max:255', 'unique:companies'];
             $rules['description'] = ['required', 'string', 'max:255'];
-            $rules['contact_phone'] = ['required', 'string', 'max:15','unique:companies'];
+            $rules['contact_phone'] = ['required', 'string', 'max:15', 'unique:companies'];
             $rules['logo'] = ['mimes:jpeg,jpg,png,gif', 'max:2048'];
-
         }
 
         return Validator::make($data, $rules);
@@ -78,9 +78,8 @@ class RegisterController extends Controller
                     'job_title' => $data['job_title'],
                     'cv' => $cvPath,
                 ]);
-
             } elseif ($data['type'] == 'company') {
-                $logoPath= null;
+                $logoPath = null;
                 if (isset($data['logo'])) {
                     // dd($data);
                     $logo = $data['logo'];
@@ -92,12 +91,11 @@ class RegisterController extends Controller
                     'company_name' => $data['company_name'],
                     'description' => $data['description'],
                     'contact_phone' => $data['contact_phone'],
-                    'logo'=>$logoPath,
+                    'logo' => $logoPath,
                 ]);
             }
             DB::commit();
             return $user;
-
         } catch (\Exception $error) {
             DB::rollBack();
             Log::error('Failed to create user ', ['error' => $error->getMessage()]);
@@ -130,9 +128,9 @@ class RegisterController extends Controller
     {
 
         if ($user->type == 'candidate') {
-            return redirect()->route('candidate.profile')->with('success', 'welcome '. $user->name);
+            return redirect()->route('candidate.profile')->with('success', 'welcome ' . $user->name);
         } elseif ($user->type == 'company') {
-            return redirect()->route('company.profile')->with('success', 'welcome '. $user->name);
+            return redirect()->route('company.profile')->with('success', 'welcome ' . $user->name);
         }
 
         return redirect($this->redirectTo);

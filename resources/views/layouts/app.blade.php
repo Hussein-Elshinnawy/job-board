@@ -33,8 +33,8 @@
     <div id="app" class="d-flex flex-column min-vh-100 bglight">
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
-                <a class="navbar-brand coprimary fw-bolder" href="{{ url("/") }}">
-                    JobBoard
+                <a class="navbar-brand coprimary fw-bolder" href="{{ route("homepage") }}">
+                    Job Board
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __("Toggle navigation") }}">
@@ -51,7 +51,7 @@
                     <ul class="navbar-nav  ms-auto">
                         <!-- Authentication Links -->
                         <li class="nav-item">
-                            <a class="nav-link coprimary fw-semibold" href="{{ url("/") }}">Home</a>
+                            <a class="nav-link coprimary fw-semibold" href="{{ route("homepage") }}">Home</a>
                         </li>
                         @guest
                             @if (Route::has("login"))
@@ -87,10 +87,12 @@
                         @endguest
                     </ul>
                 </div>
-                <div class=" bg-success justify-content-center align-content-center px-4 py-3">
-                    <a href="/" class="link m-auto fw-semibold link-underline-opacity-0 link-light colightopacity">Post a
-                        Job &#8594;</a>
-                </div>
+                @if (isset(Auth::user()->company))
+                    <div class=" bg-success justify-content-center align-content-center px-4 py-3">
+                        <a href="{{ route("jobs.create") }}" class="link m-auto fw-semibold link-underline-opacity-0 link-light colightopacity">Post a Job
+                            &#8594;</a>
+                    </div>
+                @endif
             </div>
         </nav>
 
