@@ -89,7 +89,7 @@
             {{--  --}}
             {{--  --}}
             <div class="row justify-content-center px-3">
-                @if (Auth::user()->type == 'company' && Auth::user()->company->id == $job->company_id)
+                @if (isset(Auth::user()->company ) && Auth::user()->company->id == $job->company_id)
                     <a href="{{ route('application.index', $job) }}"
                         class="btn bgsecondary cowhite fw-bolder fs-5 my-2">View
                         Applications</a>
@@ -101,7 +101,7 @@
                         <button type="submit" class="btn btn-danger cowhite fw-bolder fs-5 my-2">Delete</button>
                     </form>
                 @endif
-                @if (Auth::user()->type == 'candidate')
+                @if (isset(Auth::user()->candidate))
                     @if (isset($application))
                         <form class="row" action="{{ route('application.destroy', $application->id) }}" method="post">
                             @method('DELETE')
