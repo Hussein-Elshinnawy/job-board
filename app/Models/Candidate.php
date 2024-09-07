@@ -21,12 +21,7 @@ class Candidate extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-        return $this->belongsTo(User::class);
     }
-    // public function users(): HasOne
-    // {
-    //     return $this->hasOne(User::class);
-    // }
 
     public function comments(): HasMany
     {

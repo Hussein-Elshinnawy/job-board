@@ -45,6 +45,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/jobs/search', [JobPostsController::class, 'search'])->name('jobs.search');
 Route::get('/jobs/filter', [JobPostsController::class, 'filter'])->name('jobs.filter');
 Route::get('/jobs/{job}/restore', [JobPostsController::class, 'restore'])->name('jobs.restore');
+Route::get('/jobs/{job}/applications', [JobPostsController::class, 'applications'])->name('jobs.applications');
 Route::resource('/jobs', JobPostsController::class);
 
 
