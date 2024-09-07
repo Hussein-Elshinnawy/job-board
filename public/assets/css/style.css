@@ -102,3 +102,7 @@ body {
 .job-item:hover {
     scale: 1.05;
 }
+
+textarea {
+    resize: none !important;
+}

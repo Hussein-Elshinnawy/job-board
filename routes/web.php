@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobPostsController;
@@ -43,3 +44,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
 
 Route::resource('/jobs', JobPostsController::class);
+
+Route::resource('/application', ApplicationController::class);
