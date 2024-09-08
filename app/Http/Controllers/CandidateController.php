@@ -6,8 +6,8 @@ use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Storage;
-use DB;
+use Illuminate\Support\Facades\Storage;
+
 class CandidateController extends Controller
 {
     /**
@@ -16,27 +16,8 @@ class CandidateController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $candidate = $user->candidate()->with('user')->first();
-        // dd($candidate->user);
+        $candidate = $user->candidate->where('user_id', $user->id)->with('user')->first();
         return view('candidate.profile', compact('candidate'));
-
-
-        // $user = Auth::user()->load('candidates');
-        // // $user = Auth::user();
-        // $candidate = $user->candidates;
-        // return view("candidate.profile",compact('candidate','user'));
-
-
-        // $userId = Auth::id();
-
-        // $candidate = DB::table('candidates')
-        //                 ->join('users', 'candidates.user_id', '=', 'users.id')
-        //                 ->where('users.id', $userId)
-        //                 ->select('candidates.*', 'users.name', 'users.email')
-        //                 ->first();
-        // dd($candidate);
-        // return view("candidate.profile", compact('candidate'));
-
     }
 
     /**
@@ -68,7 +49,6 @@ class CandidateController extends Controller
      */
     public function edit(Candidate $candidate)
     {
-        //
         return view('candidate.edit', compact('candidate'));
     }
 
@@ -77,16 +57,13 @@ class CandidateController extends Controller
      */
     public function update(Request $request, Candidate $candidate)
     {
-        //
-        // dd($request, $candidate);
         $request->validate([
             'name' => 'required|string|max:255',
-            'email'=> 'required|email|max:255|unique:users,email,'.$candidate->user->id,
-            'phone_number' => 'required|string|max:15|unique:candidates,phone_number,'.$candidate->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $candidate->user->id,
+            'phone_number' => 'required|string|max:15|unique:candidates,phone_number,' . $candidate->id,
             'job_title' => 'required|string|max:255',
             'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
         ]);
-        // $oldcv=$candidate->cv;
         if ($request->hasFile('cv')) {
             $cvPath = $request->file('cv')->store('cvs', 'candidates');
 
@@ -104,11 +81,9 @@ class CandidateController extends Controller
         $candidate->update([
             'phone_number' => $request->phone_number,
             'job_title' => $request->job_title,
-            // 'cv' => $cvPath,
         ]);
 
         return redirect()->route('candidate.profile')->with('success', 'Profile updated successfully.');
-
     }
 
     /**
@@ -125,12 +100,10 @@ class CandidateController extends Controller
             }
         }
         $user = $candidate->user;
-        // dd($user, $candidate);
         $user->delete();
         $candidate->delete();
 
         Auth::logout();
         return redirect()->route('home')->with('success', 'Profile deleted successfully.');
-        // return redirect()->route('home');
     }
 }
