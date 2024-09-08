@@ -92,14 +92,15 @@ body {
     background-color: #ffffff77 !important;
 }
 
-.job-item {
+.job-item,
+.application-item {
     box-shadow: 0 0 45px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     transition: 0.75s;
-    cursor: pointer;
 }
 
 .job-item:hover {
+    cursor: pointer;
     scale: 1.05;
 }
 

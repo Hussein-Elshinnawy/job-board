@@ -84,7 +84,7 @@
 
             <div class="row justify-content-center px-3">
                 @if (isset(Auth::user()->company) && Auth::user()->company->id == $job->company_id)
-                    <a href="{{ route("application.index", $job) }}" class="btn bgsecondary cowhite fw-bolder fs-5 my-2">View Applications</a>
+                    <a href="{{ route("jobs.applications", $job) }}" class="btn bgsecondary cowhite fw-bolder fs-5 my-2">View Applications</a>
                     <a href="{{ route("jobs.edit", $job) }}" class="btn bgprimary cowhite fw-bolder fs-5 my-2">Edit Job</a>
                     <form class="row p-0 m-0" action="{{ route("jobs.destroy", $job->id) }}" method="post">
                         @method("DELETE")
@@ -111,11 +111,13 @@
                 @endif
             </div>
         </div>
+    </div>
+    @if (count($job->comments) > 0)
         <div id="spacer" class="my-4"></div>
         <x-comment :jobid="$job->id"> </x-comment>
         <div id="spacer" class="my-3"></div>
         @foreach ($job->comments as $comment)
             <x-comment :comment="$comment"> </x-comment>
         @endforeach
-    </div>
+    @endif
 @endsection

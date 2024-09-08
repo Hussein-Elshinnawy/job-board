@@ -50,4 +50,7 @@ Route::resource('/jobs', JobPostsController::class);
 
 
 Route::resource('/application', ApplicationController::class);
+Route::get('/application/{application}/accept', [JobPostsController::class, 'accept'])->name('application.accept');
+Route::get('/application/{application}/reject', [JobPostsController::class, 'reject'])->name('application.reject');
+Route::get('/application/{application}/review', [JobPostsController::class, 'review'])->name('application.review');
 Route::resource('/comment', CommentController::class);

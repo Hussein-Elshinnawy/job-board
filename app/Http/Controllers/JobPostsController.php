@@ -18,6 +18,11 @@ class JobPostsController extends Controller
      */
     public function index()
     {
+        if (isset(Auth::user()->company)) {
+            $companyId = Auth::user()->company->id;
+            $jobs = JobPost::where('company_id', $companyId)->get();
+            return view("jobs.index", compact("jobs"));
+        }
         $jobs = JobPost::all();
         return view("jobs.index", compact("jobs"));
     }
@@ -38,7 +43,6 @@ class JobPostsController extends Controller
     {
         $data = $request->all();
         $data['company_id'] = Auth::user()->company->id;
-        // dd($data);
         $job = JobPost::create($data);
         return to_route("jobs.show", $job);
     }
@@ -104,8 +108,29 @@ class JobPostsController extends Controller
 
     public function applications(JobPost $job)
     {
-        $applications = Application::where('job_post_id', $job->id)->all();
+        $applications = Application::where("job_post_id", $job->id)->get();
         return view("application.index", compact("applications"));
+        // dd($job->id, $applications);
+        // $applications = Application::where('job_post_id', $job->id)->all();
+        // return view("application.index", compact("applications"));
+    }
+
+    public function accept(Application $application)
+    {
+        $application->accept();
+        return redirect()->route('jobs.show', $application->job_post_id)->with('success', 'Application Accepted');
+    }
+
+    public function reject(Application $application)
+    {
+        $application->reject();
+        return redirect()->route('jobs.show', $application->job_post_id)->with('danger', 'Application Rejected');
+    }
+
+    public function review(Application $application)
+    {
+        $application->review();
+        return redirect()->route('jobs.show', $application->job_post_id)->with('warning', 'Application Reviewed');
     }
 
     public function filter(Request $request)
