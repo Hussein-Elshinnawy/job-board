@@ -64,8 +64,8 @@ class CompanyController extends Controller
         // dd($request,$company);
           $request->validate([
             'name' => 'required|string|max:255',
-            'email'=> 'required|email|max:255|unique:users,email,'.$company->user->id,
-            'contact_phone' => 'required|string|max:15|unique:companies,contact_phone,'.$company->id,
+            'email'=> 'required|email|max:255|unique:users,email,'.$company->user->id,'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'contact_phone' => 'required|string|min:10|max:15|unique:companies,contact_phone,'.$company->id,'regex:/^[0-9]{10,15}/',
             'description' => 'required|string|max:255',
             'logo' => 'nullable|mimes:png,jpg,jpeg,gif|max:2048',
         ]);
