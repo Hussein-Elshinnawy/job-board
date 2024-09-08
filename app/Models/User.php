@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'type',
         //added role
-        'type',
+        // 'type',
     ];
 
     /**

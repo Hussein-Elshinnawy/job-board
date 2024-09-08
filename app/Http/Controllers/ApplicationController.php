@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApplicationController extends Controller
 {
@@ -20,7 +21,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        //
+        dd('TTTTTTTTTTTTTTTT');
     }
 
     /**
@@ -28,7 +29,23 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request['candidate_id'] = Auth::user()->candidate->id;
+        $request->validate(
+            [
+                'job_post_id' =>  'unique:applications,job_post_id,NULL,id,candidate_id,' . $request->candidate_id,
+                // 'job_post_id' => 'required',
+                'candidate_id' => 'required',
+                'status' => 'pending',
+            ],
+            [
+                'job_post_id.unique' => 'You have already applied for this job',
+            ]
+
+        );
+        $application = Application::create($request->all());
+
+        return redirect()->route('jobs.show', $request['job_post_id'])->with('success', 'Application submitted successfully');
     }
 
     /**
@@ -60,6 +77,11 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+        if ($application->candidate_id == Auth::user()->candidate->id) {
+            $application->delete();
+            return redirect()->route('jobs.show', $application->job_post_id)->with('success', 'Application Canceled successfully');
+        } else {
+            return redirect()->route('jobs.show', $application->job_post_id)->with('error', 'You did not applied for this job');
+        }
     }
 }

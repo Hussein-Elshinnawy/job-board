@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\CandidateController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobPostsController;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +21,7 @@ Route::get('/', function () {
 
 //     Route::get('/company/profile', [CompanyController::class, 'index'])->name('company.profile');
 // });
-
+Auth::routes();
 
 Route::middleware(['auth', 'checkUserType:candidate'])->group(function () {
     Route::get('/candidate/profile', [CandidateController::class, 'index'])->name('candidate.profile');
@@ -34,7 +36,7 @@ Route::middleware(['auth', 'checkUserType:company'])->group(function () {
 // Route::get('/candidate/{candidate}/edit', [CandidateController::class, 'edit'])->name('candidate.edit');
 // Route::resource('candidate', CandidateController::class);
 // Route::resource('company', CompanyController::class);
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -45,4 +47,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/jobs/search', [JobPostsController::class, 'search'])->name('jobs.search');
 Route::get('/jobs/filter', [JobPostsController::class, 'filter'])->name('jobs.filter');
 Route::resource('/jobs', JobPostsController::class);
+
+Route::resource('/application', ApplicationController::class);
+Route::resource('/comment', CommentController::class);
 
