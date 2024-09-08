@@ -34,6 +34,9 @@ class JobPostResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('status')
                     ->required(),
+                Forms\Components\TextInput::make('status')
+                    ->required(),
+
                 Forms\Components\Toggle::make('is_active')
                     ->required(),
                 Forms\Components\Textarea::make('description')
@@ -68,17 +71,21 @@ class JobPostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('company.id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('city.name')
+                Tables\Columns\TextColumn::make('company.company_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->boolean(),
+                Tables\Columns\SelectColumn::make('status')->options([
+                    'accepted' => 'Accepted',
+                    'rejected' => 'Rejected'
+                ])->default('pending')->selectablePlaceholder(false)
+                    ->sortable(),
+                Tables\Columns\ToggleColumn::make('is_active'),
+                // Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('city.name')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('min_salary')
                     ->numeric()
                     ->sortable(),

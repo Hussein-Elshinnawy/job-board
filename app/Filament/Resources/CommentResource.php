@@ -42,7 +42,7 @@ class CommentResource extends Resource
                 Tables\Columns\TextColumn::make('jobPost.title')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('candidate.id')
+                Tables\Columns\TextColumn::make('candidate.user.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

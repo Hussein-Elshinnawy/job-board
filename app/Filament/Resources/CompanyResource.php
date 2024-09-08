@@ -52,7 +52,7 @@ class CompanyResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('logo')
+                Tables\Columns\ImageColumn::make('logo')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
