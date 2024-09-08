@@ -1,18 +1,17 @@
 @extends("layouts.app")
 
 @section("title")
-    All Jobs
+    Our Jobs
 @endsection
 
 @section("content")
     <div class="py-3">
-        <a href="{{ route("jobs.search") }}"> search</a>
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Listing</h1>
-        {{-- @if (count($softDeletedJobs) > 0)
+        @if (count($softDeletedJobs) > 0)
             <div class="d-flex justify-content-end m-3">
                 <a href="{{ route("jobs.trashed") }}" class="btn bg-danger cowhite">Trashed Jobs</a>
             </div>
-        @endif --}}
+        @endif
         @if (count($jobs) == 0)
             <div class="text-center">
                 <h2 class="codark fftitle my-4">No Jobs Available</h2>

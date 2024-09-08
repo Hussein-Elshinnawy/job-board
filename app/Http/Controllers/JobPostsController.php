@@ -18,15 +18,15 @@ class JobPostsController extends Controller
      */
     public function index()
     {
-        $softDeletedJobs = [];
-        if (isset(Auth::user()->company)) {
-            $companyId = Auth::user()->company->id;
-            $jobs = JobPost::where('company_id', $companyId)->get();
-            $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
-            return view("jobs.index", compact("jobs", "softDeletedJobs"));
-        }
+        // $softDeletedJobs = [];
+        // if (isset(Auth::user()->company)) {
+        //     $companyId = Auth::user()->company->id;
+        //     $jobs = JobPost::where('company_id', $companyId)->get();
+        //     $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
+        //     return view("jobs.index", compact("jobs", "softDeletedJobs"));
+        // }
         $jobs = JobPost::all();
-        return view("jobs.index", compact("jobs", "softDeletedJobs"));
+        return view("jobs.index", compact("jobs"));
     }
 
     /**

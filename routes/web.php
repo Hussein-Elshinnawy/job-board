@@ -28,6 +28,7 @@ Route::middleware(['auth', 'checkUserType:candidate'])->group(function () {
 
 Route::middleware(['auth', 'checkUserType:company'])->group(function () {
     Route::get('/company/profile', [CompanyController::class, 'index'])->name('company.profile');
+    Route::get('/company/jobs', [CompanyController::class, 'allJobs'])->name('company.jobs');
     Route::resource('company', CompanyController::class);
 });
 
