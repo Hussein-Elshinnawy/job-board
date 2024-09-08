@@ -69,6 +69,13 @@ return [
             'url' => env('APP_URL') . '/companies',
             'throw' => false,
         ],
+        'filament' => [
+            'driver' => 'local',
+            'root' => public_path('assets/'),
+            'visibility' => 'public',
+            'url' => env('APP_URL') . '/assets',
+            'throw' => false,
+        ],
 
     ],
 

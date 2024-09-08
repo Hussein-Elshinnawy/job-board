@@ -35,7 +35,13 @@ class UserResource extends Resource
                     ->password()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('type')
+                Forms\Components\Select::make('type')->options(
+                    [
+                        'admin' => 'Admin',
+                        'candidate' => 'Candidate',
+                        'company' => 'Company',
+                    ]
+                )->default('candidate')->selectablePlaceholder(false)
                     ->required(),
             ]);
     }

@@ -24,7 +24,7 @@ class CompanyResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                    ->relationship('user', 'name')->selectablePlaceholder(false)
                     ->required(),
                 Forms\Components\TextInput::make('company_name')
                     ->required()
@@ -36,8 +36,11 @@ class CompanyResource extends Resource
                     ->tel()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('logo')
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('logo')
+                    ->directory('images/company')
+                    ->avatar()
+
+
             ]);
     }
 
@@ -45,15 +48,15 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('company_name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('company_name')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('logo')
-                    ->searchable(),
+                    ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -12,25 +12,37 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Guava\FilamentNestedResources\Concerns\NestedResource;
+use Guava\FilamentNestedResources\Ancestor;
+
 
 class ApplicationResource extends Resource
 {
+
     protected static ?string $model = Application::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 Forms\Components\Select::make('job_post_id')
                     ->relationship('jobPost', 'title')
                     ->required(),
                 Forms\Components\Select::make('candidate_id')
-                    ->relationship('candidate', 'id')
+                    ->relationship('candidate.user', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
+                Forms\Components\Select::make('status')->options(
+                    [
+                        'pending' => 'Pending',
+                        'reviewed' => 'Reviewed',
+                        'accepted' => 'Accepted',
+                        'rejected' => 'Rejected',
+
+                    ]
+                )->required(),
             ]);
     }
 
@@ -70,6 +82,15 @@ class ApplicationResource extends Resource
                 ]),
             ]);
     }
+
+    use NestedResource;
+
+
+    public static function getAncestor(): ?Ancestor
+    {
+        return null;
+    }
+
 
     public static function getRelations(): array
     {

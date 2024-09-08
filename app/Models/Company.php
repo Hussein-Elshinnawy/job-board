@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Company extends Model
 {
     use HasFactory;
-
+    // protected $casts = [
+    //     'logo' => 'string',
+    // ];
     protected $fillable = [
         'user_id',
         'email',

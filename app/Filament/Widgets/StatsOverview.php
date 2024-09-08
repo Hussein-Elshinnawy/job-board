@@ -29,9 +29,9 @@ class StatsOverview extends BaseWidget
         $cities = City::count();
         return [
 
+            Stat::make('Users', $users)->description('Admins:' . $admins . ' Candidates:' . $candidates . ' Companies:' . $company)->descriptionIcon('heroicon-o-user-group')->color('success'),
             Stat::make('Job Posts', $postJob),
             Stat::make('Applications', $applciations),
-            Stat::make('Users', $users)->description('Admins:' . $admins . ' Candidates:' . $candidates . ' Companies:' . $company)->descriptionIcon('heroicon-o-user-group')->color('success'),
             // Stat::make('Companies', $company),
             // Stat::make('Candidates', $candidates),
             // Stat::make('Admins', $admins),

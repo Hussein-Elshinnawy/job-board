@@ -33,8 +33,8 @@ class CandidateResource extends Resource
                 Forms\Components\TextInput::make('job_title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('cv')
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('cv')
+                    ->directory('files/cv')->acceptedFileTypes(['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png']),
             ]);
     }
 
@@ -50,6 +50,7 @@ class CandidateResource extends Resource
                 Tables\Columns\TextColumn::make('job_title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cv')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -80,7 +81,6 @@ class CandidateResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
         ];
     }
 

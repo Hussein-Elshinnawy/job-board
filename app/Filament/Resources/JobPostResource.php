@@ -6,6 +6,7 @@ use App\Filament\Resources\JobPostResource\Pages;
 use App\Filament\Resources\JobPostResource\RelationManagers;
 use App\Models\JobPost;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,6 +24,7 @@ class JobPostResource extends Resource
     {
         return $form
             ->schema([
+
                 Forms\Components\Select::make('company_id')
                     ->relationship('company', 'id')
                     ->required(),
@@ -32,13 +34,14 @@ class JobPostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
+                Forms\Components\Select::make('status')->options([
+                    'pending' => 'Pending',
+                    'accepted' => 'Accepted',
+                    'rejected' => 'Rejected'
+                ])->required(),
 
                 Forms\Components\Toggle::make('is_active')
-                    ->required(),
+                    ->default(true),
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->columnSpanFull(),
@@ -64,6 +67,18 @@ class JobPostResource extends Resource
                 Forms\Components\TextInput::make('vacancies')
                     ->required()
                     ->numeric(),
+                Section::make('Technologies And Categories')
+                    ->columns(1)
+                    ->schema([
+                        Forms\Components\Select::make('technologies')
+                            ->relationship('technologies', 'name')
+                            ->multiple()->preload()
+                            ->required(),
+                        Forms\Components\Select::make('categories')
+                            ->relationship('categories', 'name')
+                            ->multiple()->preload()->required(),
+
+                    ]),
             ]);
     }
 
@@ -77,23 +92,24 @@ class JobPostResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\SelectColumn::make('status')->options([
+                    'pending' => 'Pending',
                     'accepted' => 'Accepted',
                     'rejected' => 'Rejected'
-                ])->default('pending')->selectablePlaceholder(false)
+                ])->default('pending')->width(200)->selectablePlaceholder(false)
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active'),
                 // Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('city.name')
+                    ->numeric()->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('min_salary')->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('min_salary')
+                Tables\Columns\TextColumn::make('max_salary')->toggleable(isToggledHiddenByDefault: true)
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('max_salary')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('work_type'),
-                Tables\Columns\TextColumn::make('deadline')
+                Tables\Columns\TextColumn::make('work_type')->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('deadline')->toggleable(isToggledHiddenByDefault: true)
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('vacancies')
