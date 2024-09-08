@@ -96,23 +96,28 @@ class JobPostsController extends Controller
 
     public function restore(JobPost $job)
     {
-        // dd($job);
-
+        $job->restore();
+        if (JobPost::onlyTrashed()->count() > 0) {
+            return to_route("jobs.trashed");
+        } else {
+            return to_route("jobs.index");
+        }
     }
 
     public function forceDelete(JobPost $job)
     {
-        // dd($job);
-
+        $job->forceDelete();
+        if (JobPost::onlyTrashed()->count() > 0) {
+            return to_route("jobs.trashed");
+        } else {
+            return to_route("jobs.index");
+        }
     }
 
     public function applications(JobPost $job)
     {
         $applications = Application::where("job_post_id", $job->id)->get();
         return view("application.index", compact("applications"));
-        // dd($job->id, $applications);
-        // $applications = Application::where('job_post_id', $job->id)->all();
-        // return view("application.index", compact("applications"));
     }
 
     public function accept(Application $application)
