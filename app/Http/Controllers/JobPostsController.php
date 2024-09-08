@@ -18,13 +18,15 @@ class JobPostsController extends Controller
      */
     public function index()
     {
+        $softDeletedJobs = [];
         if (isset(Auth::user()->company)) {
             $companyId = Auth::user()->company->id;
             $jobs = JobPost::where('company_id', $companyId)->get();
-            return view("jobs.index", compact("jobs"));
+            $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
+            return view("jobs.index", compact("jobs", "softDeletedJobs"));
         }
         $jobs = JobPost::all();
-        return view("jobs.index", compact("jobs"));
+        return view("jobs.index", compact("jobs", "softDeletedJobs"));
     }
 
     /**
@@ -84,8 +86,8 @@ class JobPostsController extends Controller
      */
     public function destroy(JobPost $job)
     {
-        // dd($job);
-
+        $job->delete();
+        return to_route("jobs.index");
     }
 
     public function trashed(JobPost $job)
@@ -94,8 +96,10 @@ class JobPostsController extends Controller
         return view("jobs.trashed", compact("softDeletedJobs"));
     }
 
-    public function restore(JobPost $job)
+    public function restore(string $id)
     {
+        // dd("hello");
+        $job = JobPost::onlyTrashed()->findOrFail($id);
         $job->restore();
         if (JobPost::onlyTrashed()->count() > 0) {
             return to_route("jobs.trashed");
@@ -104,8 +108,9 @@ class JobPostsController extends Controller
         }
     }
 
-    public function forceDelete(JobPost $job)
+    public function forceDelete(string $id)
     {
+        $job = JobPost::onlyTrashed()->findOrFail($id);
         $job->forceDelete();
         if (JobPost::onlyTrashed()->count() > 0) {
             return to_route("jobs.trashed");

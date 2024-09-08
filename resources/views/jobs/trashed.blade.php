@@ -6,9 +6,12 @@
 
 @section("content")
     <div class="py-3">
-        <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Listing</h1>
+        <h1 class="text-center pt-5 fw-bolder fftitle codark">Deleted Jobs</h1>
+        <div class="d-flex justify-content-end m-3">
+            <a href="{{ route("jobs.index") }}" class="btn bgprimary cowhite">All Jobs</a>
+        </div>
         @foreach ($softDeletedJobs as $job)
-            <div class="m-5 p-4 job-item">
+            <div class="m-5 p-4 trashed-jobs-item">
                 <div class="row">
                     <div class="col-2">
                         <img src="{{ asset("assets/images/company/logo.jpg") }}" width="100" height="100" style="border: 1px solid #dee2e6 !important">
@@ -30,7 +33,12 @@
                         </span>
                     </div>
                     <div class="col-3 text-end">
-                        <a class="btn bgprimary cowhite m-3" href="{{ route("jobs.restore", $job) }}"> search</a>
+                        <form action="{{ route("jobs.forceDelete", $job->id) }}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <a class="btn bgprimary cowhite me-2" href="{{ route("jobs.restore", $job->id) }}">Restore</a>
+                            <input type="submit" class="btn bg-danger cowhite me-2 my-3" value="Delete">
+                        </form>
                         <p class="me-4">
                             <i class="fa-solid fa-calendar-days coprimary me-1"></i>
                             Date Line:
