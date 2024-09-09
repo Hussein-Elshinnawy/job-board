@@ -2,7 +2,7 @@
 <div class="textarea-container my-2">
     @if (isset($comment))
         {{--  SHOW +/- EDIT OLD COMMENTS --}}
-        <?php $isAuthurized = Auth::user()->type == 'candidate' && $comment?->candidate_id == Auth::user()->candidate->id; ?>
+        <?php $isAuthurized = isset(Auth::user()->candidate) && $comment?->candidate_id == Auth::user()->candidate->id; ?>
         @if (!$isAuthurized)
             {{-- Only Show and report --}}
             <textarea class="myTextarea form-control" disabled rows="3" cols="10">{{ $comment?->body }}</textarea>
@@ -14,8 +14,7 @@
                     <li><a class="dropdown-item" href="#">Report</a></li>
                 </ul>
             </div>
-            <span class="by-you"> {{$comment->candidate->user->name}} </span>
-
+            <span class="by-you"> {{ $comment->candidate->user->name }} </span>
         @else
             {{-- Show & EDIT & DELETE --}}
             <form action="{{ route('comment.update', $comment?->id) }}" method="post">
@@ -39,9 +38,9 @@
                     </form>
                 </ul>
             </div>
-            <span class="by-you coprimary"> {{$comment->candidate->user->name}} </span>
+            <span class="by-you coprimary"> {{ $comment->candidate->user->name }} </span>
         @endif
-    @elseif (Auth::user()->type == 'candidate')
+    @elseif (isset(Auth::user()->candidate))
         {{--  ADD NEW COMMENT if user is candidate --}}
         <form action="{{ route('comment.store') }}" method="post">
             @csrf
