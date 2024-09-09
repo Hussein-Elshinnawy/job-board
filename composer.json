@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "coreui/coreui": "5.1.2",
+        "coreui/coreui-pro": "^5.4",
         "filament/filament": "^3.2",
         "guava/filament-nested-resources": "^1.2",
         "laravel/framework": "^11.9",

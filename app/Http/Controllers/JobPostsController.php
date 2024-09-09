@@ -12,6 +12,8 @@ use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPSTORM_META\map;
+
 class JobPostsController extends Controller
 {
     /**
@@ -35,8 +37,10 @@ class JobPostsController extends Controller
      */
     public function create()
     {
+        $technologis = Technology::all();
+        $categories = Category::all();
         $cities = City::all();
-        return view("jobs.create", compact("cities"));
+        return view("jobs.create", compact("cities", "technologis", "categories"));
     }
 
     /**
@@ -47,7 +51,13 @@ class JobPostsController extends Controller
         $data = $request->all();
         $data['company_id'] = Auth::user()->company->id;
         $job = JobPost::create($data);
-        return to_route("jobs.show", $job);
+        foreach ($data['technologis'] as $technology) {
+            $job->technologies()->attach($technology);
+        }
+        foreach ($data['categories']  as $category) {
+            $job->categories()->attach($category);
+        }
+        return to_route("jobs.show", $job)->with('success', 'Job Created Successfully');
     }
 
     /**
@@ -68,9 +78,11 @@ class JobPostsController extends Controller
      */
     public function edit(JobPost $job)
     {
+        $technologis = Technology::all();
+        $categories = Category::all();
         $cities = City::all();
         $workType = ["onsite", "remote", "hybrid", "freelance"];
-        return view("jobs.edit", compact("job", 'workType', 'cities'));
+        return view("jobs.edit", compact("job", 'workType', 'cities', 'technologis', 'categories'));
     }
 
     /**
@@ -79,8 +91,30 @@ class JobPostsController extends Controller
     // public function update(Request $request, JobPost $job)
     public function update(UpdateJobsRequest $request, JobPost $job)
     {
+        $oldTecIds = $job->technologies->pluck('id')->toArray();
+        foreach ($oldTecIds as $oldID) {
+            if (!in_array($oldID, $request['technologis'])) {
+                $job->technologies()->detach($oldID);
+            }
+        }
+        foreach ($request['technologis'] as $tec) {
+            if (!in_array($tec, $oldTecIds)) {
+                $job->technologies()->attach($tec);
+            }
+        }
+        $oldCatIds = $job->categories->pluck('id')->toArray();
+        foreach ($oldCatIds as $oldID) {
+            if (!in_array($oldID, $request['categories'])) {
+                $job->categories()->detach($oldID);
+            }
+        }
+        foreach ($request['categories'] as $tec) {
+            if (!in_array($tec, $oldCatIds)) {
+                $job->categories()->attach($tec);
+            }
+        }
         $job->update($request->all());
-        return to_route("jobs.show", compact('job'));
+        return to_route("jobs.show", compact('job'))->with('success', 'Job Updated Successfully');
     }
 
     /**
