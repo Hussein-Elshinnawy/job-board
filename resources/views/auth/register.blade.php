@@ -1,11 +1,11 @@
-@extends("layouts.app")
+@extends('layouts.app')
 
-@section("content")
+@section('content')
     <div class="col-md-8 offset-md-2">
         <div class="mb-4 bgwhite">
             <div class="m-4 py-4">
-                <h1>{{ __("Register") }}</h1>
-                <form method="POST" action="{{ route("register") }}" enctype="multipart/form-data">
+                <h1>{{ __('Register') }}</h1>
+                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group mb-3">
@@ -141,37 +141,36 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="contact_phone" >Contact
-                                Phone</label>
-                                <input id="contact_phone" type="text"
-                                    class="form-control  @error('contact_phone') is-invalid @enderror"
-                                    name="contact_phone" value="{{ old('contact_phone') }}">
-                                @error('contact_phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <label for="contact_phone">Contact Phone</label>
+                            <input id="contact_phone" type="text"
+                                class="form-control  @error('contact_phone') is-invalid @enderror" name="contact_phone"
+                                value="{{ old('contact_phone') }}">
+                            @error('contact_phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="logo" >Logo</label>
+                            <label for="logo">Logo</label>
 
-                                <input id="logo" type="file"
-                                    class="form-control  @error('logo') is-invalid @enderror" name="logo"
-                                    accept=".png,.jpg,.jpeg,.gif">
-                                @error("logo")
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <input id="logo" type="file"
+                                class="form-control  @error('logo') is-invalid @enderror" name="logo"
+                                accept=".png,.jpg,.jpeg,.gif">
+                            @error('logo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
                         </div>
 
                     </div>
                     <div class="d-flex justify-content-center my-3">
-                                <button type="submit" class="btn text-light bgprimary ">
-                                    {{ __('Register') }}
-                                </button>
+                        <button type="submit" class="btn text-light bgprimary ">
+                            {{ __('Register') }}
+                        </button>
                         <a href="{{ route('login') }}" class="btn btn-link">Already have an account? Log in</a>
                     </div>
                 </form>
