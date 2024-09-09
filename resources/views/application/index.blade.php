@@ -5,6 +5,9 @@
 @endsection
 
 @section("content")
+{{-- @if () --}}
+    
+{{-- @endif --}}
     <div class="py-3">
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Applications for this post</h1>
         <div class="d-flex justify-content-end my-3">
@@ -27,7 +30,7 @@
                             </p>
                             <p class="me-3">
                                 <strong>Status:</strong>
-                                {{ $application->status == "pending" ? "Pending" : ($application->status == "accepted" ? "Accepted" : "Rejected") }}
+                                {{ Str::ucfirst($application->status) }}
                             </p>
                             @if ($application->status == "rejected")
                                 <p class="me-3">
@@ -41,8 +44,11 @@
                                     <strong>Accepted On:</strong>
                                     {{ \Carbon\Carbon::parse($application->accepted_at)->format("d M, Y") }}
                                 </p>
-                                <a href="{{ route("application.reject", $application->id) }}" class="btn btn-danger me-4">Reject Application</a>
                                 <a href="{{ route("application.review", $application->id) }}" class="btn btn-info cowhite me-4">Review Application</a>
+                                <a href="{{ route("application.reject", $application->id) }}" class="btn btn-danger me-4">Reject Application</a>
+                            @elseif ($application->status == "reviewed")
+                                <a href="{{ route("application.accept", $application->id) }}" class="btn bgprimary cowhite me-4">Accept Application</a>
+                                <a href="{{ route("application.reject", $application->id) }}" class="btn btn-danger me-4">Reject Application</a>
                             @else
                                 <a href="{{ route("application.accept", $application->id) }}" class="btn bgprimary cowhite me-4">Accept Application</a>
                                 <a href="{{ route("application.review", $application->id) }}" class="btn btn-info cowhite me-4">Review Application</a>

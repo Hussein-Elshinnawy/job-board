@@ -29,7 +29,7 @@ class JobPostsController extends Controller
         $categories = Category::all();
         $cities = City::all();
         $jobs = JobPost::paginate(5);
-        return view("jobs.index", compact("jobs","categories","cities"));
+        return view("jobs.index", compact("jobs", "categories", "cities"));
     }
 
     /**
@@ -132,19 +132,19 @@ class JobPostsController extends Controller
     public function accept(Application $application)
     {
         $application->accept();
-        return redirect()->route('jobs.show', $application->job_post_id)->with('success', 'Application Accepted');
+        return redirect()->back()->with('accepted', 'Application Accepted');
     }
 
     public function reject(Application $application)
     {
         $application->reject();
-        return redirect()->route('jobs.show', $application->job_post_id)->with('danger', 'Application Rejected');
+        return redirect()->back()->with('success', 'Application Rejected');
     }
 
     public function review(Application $application)
     {
         $application->review();
-        return redirect()->route('jobs.show', $application->job_post_id)->with('warning', 'Application Reviewed');
+        return redirect()->back()->with('success', 'Application Reviewed');
     }
 
 

@@ -6,7 +6,6 @@
 
 @section("content")
     <div class="py-3">
-        {{-- <a href="{{ route("jobs.search") }}"> search</a> --}}
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Listing</h1>
         {{-- @if (count($softDeletedJobs) > 0)
             <div class="d-flex justify-content-end m-3">
@@ -78,8 +77,6 @@
                                             <i class="fa-regular fa-money-bill-1 coprimary me-1"></i>
                                             {{ $job->min_salary }} - {{ $job->max_salary }}
                                         </span>
-                                        {{-- <p>{{ \Illuminate\Support\Str::words($job->description, 10) }}</p> --}}
-                                        {{-- <h4>descripttion: {{ strlen($job->description) > 50 ? substr($job->description, 0, 100) . ".." : $job->description }}</h4> --}}
                                     </div>
                                     <div class="col-3 text-end">
                                         <button class="btn bgprimary cowhite m-3">View Details</button>
@@ -98,7 +95,6 @@
                     <div class="pagination">
                         {{ $jobs->links() }}
                     </div>
-
                 @endif
             @endif
         </div>
