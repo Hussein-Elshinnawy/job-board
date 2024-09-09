@@ -131,87 +131,71 @@
                 <div class="col">
                     <ul style="list-style-type:none;" class="">
                         <li>
-                            <h5 class="fw-bold colight">Company</h5>
+                            <h5 class="fw-bold colight">Where to find us</h5>
                         </li>
 
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0  link-light link-opacity-50">Home</a>
+                            &#10148; <a href="/" class="link-underline-opacity-0  link-light link-opacity-50">28
+                                Gardenia St</a>
                         </li>
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
-                                Us</a>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0  link-light link-opacity-50">London, UK</a>
                         </li>
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
-                                Us</a>
+                            &#10148; <a href="/" class="link-underline-opacity-0  link-light link-opacity-50">Show
+                                Map</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col">
                     <ul style="list-style-type:none;" class="">
                         <li>
-                            <h5 class="fw-bold colight">Company</h5>
+                            <h5 class="fw-bold colight">How To Contact Us</h5>
                         </li>
 
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
+                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Tel:
+                                +963 7546231</a>
                         </li>
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
-                                Us</a>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Fax: +963 7546231</a>
                         </li>
                         <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
-                                Us</a>
+                            &#10148; <a href="/"
+                                class="link-underline-opacity-0 link-light link-opacity-50 ">Email:
+                                info@jobboard.or.uk</a>
                         </li>
                     </ul>
                 </div>
-                <div class="col">
-                    <ul style="list-style-type:none;" class="">
-                        <li>
-                            <h5 class="fw-bold colight">Company</h5>
-                        </li>
 
-                        <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
-                        </li>
-                        <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
-                                Us</a>
-                        </li>
-                        <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
-                                Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul style="list-style-type:none;" class="">
-                        <li>
-                            <h5 class="fw-bold colight">Company</h5>
-                        </li>
 
-                        <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Home</a>
-                        </li>
-                        <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">About
-                                Us</a>
-                        </li>
-                        <li>
-                            &#10148; <a href="/" class="link-underline-opacity-0 link-light link-opacity-50 ">Contact
-                                Us</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
             <hr>
-            <div>
-                <div>
-                    <span class="colightopacity"> &#169; </span> Your Site Name <span class="colightopacity"> All Rights Reserved </span>
+            <div class="row">
+
+                <div class="col flex-grow mx-4 fw-medium">
+                    <span class="colightopacity"> &#169; </span> Job Board <span class="colightopacity"> All
+                        Rights
+                        Reserved </span>
                 </div>
-                <div></div>
+                <div class="col-auto mx-4 fw-medium">
+                    <div class="row justify-content-between">
+                        <a href="#" class="col-auto link-underline link-underline-opacity-0 colightopacity"> <i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="col-auto link-underline link-underline-opacity-0 colightopacity"> <i
+                                class="fa-brands fa-square-instagram"></i></a>
+                        <a href="#" class="col-auto link-underline link-underline-opacity-0 colightopacity"> <i
+                                class="fa-brands fa-square-x-twitter"></i></a>
+                        <a href="#" class="col-auto link-underline link-underline-opacity-0 colightopacity"> <i
+                                class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="col-auto link-underline link-underline-opacity-0 colightopacity"> <i
+                                class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
             </div>
+            <div></div>
         </footer>
     </div>
     <script>
