@@ -9,6 +9,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use App\Http\Middleware\IsAdmin;
+use Filament\Navigation\MenuItem;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
@@ -30,6 +31,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->userMenuItems([
+                MenuItem::make()->label("Web Site")->icon("heroicon-o-home")->url("/"),
+            ])
             ->colors([
                 'primary' => Color::Green,
             ])
@@ -60,6 +64,5 @@ class AdminPanelProvider extends PanelProvider
                 IsAdmin::class,
 
             ]);
-
     }
 }

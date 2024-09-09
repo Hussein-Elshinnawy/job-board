@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckUserType;
 
-Route::get('/', [JobPostsController::class, 'index'])->name('homepage');
 
 
 // Route::middleware(['auth'])->group(function () {
@@ -36,8 +35,9 @@ Route::middleware(['auth', 'checkUserType:company'])->group(function () {
 // Route::resource('candidate', CandidateController::class);
 // Route::resource('company', CompanyController::class);
 Auth::routes();
+Route::get('/', [JobPostsController::class, 'index'])->name('homepage');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [JobPostsController::class, 'index'])->name('home');
 
 // Route::get('/candidate/dashboard', [CandidateController::class, 'index'])->name('candidate.dashboard');
 
