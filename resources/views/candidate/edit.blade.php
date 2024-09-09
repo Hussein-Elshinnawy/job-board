@@ -58,7 +58,7 @@
 
                         <div class="form-group mb-3">
                             @if ($candidate->cv)
-                                <p>Current CV: <a href="{{ asset("candidates/" . $candidate->cv) }}" target="_blank">View
+                                <p>Current CV: <a href="{{ asset("candidates/" . $candidate->cv) }}" target="_blank" class="btn bgprimary cowhite ms-2 mt-1">View
                                         CV</a></p>
                             @endif
                             <label for="cv">Upload CV</label>

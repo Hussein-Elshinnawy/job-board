@@ -28,8 +28,10 @@ class JobPostsController extends Controller
         //     $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
         //     return view("jobs.index", compact("jobs", "softDeletedJobs"));
         // }
-        $jobs = JobPost::all();
-        return view("jobs.index", compact("jobs"));
+        $categories = Category::all();
+        $cities = City::all();
+        $jobs = JobPost::paginate(5);
+        return view("jobs.index", compact("jobs", "categories", "cities"));
     }
 
     /**
@@ -164,19 +166,19 @@ class JobPostsController extends Controller
     public function accept(Application $application)
     {
         $application->accept();
-        return redirect()->route('jobs.show', $application->job_post_id)->with('success', 'Application Accepted');
+        return redirect()->back()->with('accepted', 'Application Accepted');
     }
 
     public function reject(Application $application)
     {
         $application->reject();
-        return redirect()->route('jobs.show', $application->job_post_id)->with('danger', 'Application Rejected');
+        return redirect()->back()->with('success', 'Application Rejected');
     }
 
     public function review(Application $application)
     {
         $application->review();
-        return redirect()->route('jobs.show', $application->job_post_id)->with('warning', 'Application Reviewed');
+        return redirect()->back()->with('success', 'Application Reviewed');
     }
 
 
@@ -238,12 +240,12 @@ class JobPostsController extends Controller
                 ->where('min_salary', '<=', $maxSalary);
         }
         // $jobs = $query->where('is_active', 1)->get();
-        $jobs = $query->where('is_active', 1)->paginate(3);
+        $jobs = $query->where('is_active', 1)->paginate(5);
         // dd($jobs);
         $categories = Category::all();
         $cities = City::all();
 
-        return view('jobs.search', compact('jobs', 'cities', 'categories'));
+        return view('jobs.index', compact('jobs', 'cities', 'categories'));
     }
 
     public function search()
