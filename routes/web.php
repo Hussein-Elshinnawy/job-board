@@ -38,8 +38,6 @@ Route::middleware(['auth', 'checkUserType:company'])->group(function () {
 Auth::routes();
 Route::get('/', [JobPostsController::class, 'index'])->name('homepage');
 
-Route::get('/home', [JobPostsController::class, 'index'])->name('home');
-
 // Route::get('/candidate/dashboard', [CandidateController::class, 'index'])->name('candidate.dashboard');
 
 // Route::get('/company/dashboard', [CompanyController::class, 'index'])->name('company.dashboard');
@@ -58,4 +56,3 @@ Route::get('/application/{application}/accept', [JobPostsController::class, 'acc
 Route::get('/application/{application}/reject', [JobPostsController::class, 'reject'])->name('application.reject');
 Route::get('/application/{application}/review', [JobPostsController::class, 'review'])->name('application.review');
 Route::resource('/comment', CommentController::class);
-

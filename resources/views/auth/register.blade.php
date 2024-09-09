@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
+@section("content")
     <div class="col-md-8 offset-md-2">
         <div class="mb-4 bgwhite">
             <div class="m-4 py-4">
-                <h1>{{ __('Register') }}</h1>
-                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                <h1>{{ __("Register") }}</h1>
+                <form method="POST" action="{{ route("register") }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group mb-3">
@@ -159,7 +159,7 @@
                                 <input id="logo" type="file"
                                     class="form-control  @error('logo') is-invalid @enderror" name="logo"
                                     accept=".png,.jpg,.jpeg,.gif">
-                                @error('logo')
+                                @error("logo")
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
