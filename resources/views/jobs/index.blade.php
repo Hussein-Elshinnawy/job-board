@@ -17,7 +17,7 @@
                 <div class="row mb-2">
                     <div class="col-md-4 ">
                         <select name="category" class="form-control">
-                            <option value="">Select Category</option>
+                            <option value="">Select Category</optioun>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -65,7 +65,6 @@
             @if (isset($jobs))
                 @if ($jobs->isEmpty())
                     <div class="position-absolute top-50 start-50 translate-middle ">
-
                         No jobs found.
                     </div>
                 @else
@@ -108,7 +107,7 @@
                         </div>
                     @endforeach
 
-                    <div class="pagination">
+                    <div class="row d-flex justify-content-md-center mx-5 p">
                         {{ $jobs->links() }}
                     </div>
                 @endif

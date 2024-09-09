@@ -34,7 +34,7 @@
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
                 <a class="navbar-brand {{ Route::currentRouteName() === "homepage" ? "coprimary fw-semibold" : "" }}" href="{{ route("homepage") }}">
-                    Job Board
+                    <img src="{{ asset("assets/" ."logo.jpg") }}" class="img-thumbnail rounded-circle object-fit-cover" style="width: 6%" alt="Job-Board">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __("Toggle navigation") }}">
