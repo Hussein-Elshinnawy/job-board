@@ -26,8 +26,10 @@ class JobPostsController extends Controller
         //     $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
         //     return view("jobs.index", compact("jobs", "softDeletedJobs"));
         // }
-        $jobs = JobPost::all();
-        return view("jobs.index", compact("jobs"));
+        $categories = Category::all();
+        $cities = City::all();
+        $jobs = JobPost::paginate(5);
+        return view("jobs.index", compact("jobs","categories","cities"));
     }
 
     /**
@@ -204,12 +206,12 @@ class JobPostsController extends Controller
                 ->where('min_salary', '<=', $maxSalary);
         }
         // $jobs = $query->where('is_active', 1)->get();
-        $jobs = $query->where('is_active', 1)->paginate(3);
+        $jobs = $query->where('is_active', 1)->paginate(5);
         // dd($jobs);
         $categories = Category::all();
         $cities = City::all();
 
-        return view('jobs.search', compact('jobs', 'cities', 'categories'));
+        return view('jobs.index', compact('jobs', 'cities', 'categories'));
     }
 
     public function search()
