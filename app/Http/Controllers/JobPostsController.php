@@ -203,8 +203,8 @@ class JobPostsController extends Controller
             $query->where('max_salary', '>=', $maxSalary)
                 ->where('min_salary', '<=', $maxSalary);
         }
-        $jobs = $query->where('is_active', 1)->get();
-        // $jobs = $query->where('is_active', 1)->paginate(10);
+        // $jobs = $query->where('is_active', 1)->get();
+        $jobs = $query->where('is_active', 1)->paginate(3);
         // dd($jobs);
         $categories = Category::all();
         $cities = City::all();

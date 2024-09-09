@@ -51,7 +51,7 @@
                     </div>
                 </form>
                 <div class="d-flex justify-content-center my-3">
-                    <a href="{{ route('register') }}" class="btn btn-link">Already have an account? Log in</a>
+                    <a href="{{ route('register') }}" class="btn btn-link">Don't have an account?</a>
                 </div>
             </div>
         </div>

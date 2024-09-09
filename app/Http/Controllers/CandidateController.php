@@ -59,10 +59,12 @@ class CandidateController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email'=> 'required|email|max:255|unique:users,email,'.$candidate->user->id, 'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-            'phone_number' => 'required|string|min:10|max:15|unique:candidates,phone_number,'.$candidate->id,'regex:/^[0-9]{10,15}$/',
+            'email' => 'required|email|max:255|unique:users,email,' . $candidate->user->id,
+            'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'phone_number' => 'required|string|min:10|max:15|unique:candidates,phone_number,' . $candidate->id,
+            'regex:/^[0-9]{10,15}$/',
             'job_title' => 'required|string|max:255',
-            'cv' => 'nullable|mimes:pdf,doc,docx|max:2048',
+            'cv' => 'nullable|mimes:pdf,doc,docx,jpeg,jpg,png|max:2048',
         ]);
         if ($request->hasFile('cv')) {
             $cvPath = $request->file('cv')->store('cvs', 'candidates');

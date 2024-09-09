@@ -30,22 +30,22 @@ class RegisterController extends Controller
 
         $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users','regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'type' => ['required', 'in:candidate,company'],
         ];
 
         if (isset($data['type']) && $data['type'] === 'candidate') {
-            $rules['phone_number'] = ['required', 'string','min:10', 'max:15', 'unique:candidates','regex:/^[0-9]{10,15}$/'];
+            $rules['phone_number'] = ['required', 'string', 'min:10', 'max:15', 'unique:candidates', 'regex:/^[0-9]{10,15}$/'];
             $rules['job_title'] = ['required', 'string', 'max:255'];
-            $rules['cv'] = ['mimes:pdf,doc,docx', 'max:2048'];
+            $rules['cv'] = ['mimes:pdf,doc,docx,jpeg,jpg,png', 'max:2048'];
         }
 
         if (isset($data['type']) && $data['type'] === 'company') {
             $rules['company_name'] = ['required', 'string', 'max:255', 'unique:companies'];
             $rules['description'] = ['required', 'string', 'max:255'];
-            $rules['contact_phone'] = ['required', 'string','min:10', 'max:15','unique:companies','regex:/^[0-9]{10,15}$/'];
-            $rules['logo'] = ['mimes:jpeg,jpg,png,gif', 'max:2048'];
+            $rules['contact_phone'] = ['required', 'string', 'min:10', 'max:15', 'unique:companies', 'regex:/^[0-9]{10,15}$/'];
+            $rules['logo'] = ['mimes:jpeg,jpg,png', 'max:2048'];
         }
 
         return Validator::make($data, $rules);

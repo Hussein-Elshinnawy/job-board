@@ -8,7 +8,7 @@
     <div class="py-3">
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Applications for this post</h1>
         <div class="d-flex justify-content-end my-3">
-            <a href="{{ route("jobs.index") }}" class="btn bgprimary cowhite fw-bolder fs-4">Back</a>
+            <a href="{{ route("jobs.index") }}" class="btn bgprimary cowhite fw-bolder fs-4 mx-3">Back</a>
         </div>
         @if (count($applications) > 0)
             @foreach ($applications as $application)
