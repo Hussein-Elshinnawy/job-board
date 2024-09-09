@@ -29,7 +29,7 @@ class RegisterController extends Controller
     {
 
         $rules = [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:8', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', 'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'type' => ['required', 'in:candidate,company'],
@@ -42,8 +42,8 @@ class RegisterController extends Controller
         }
 
         if (isset($data['type']) && $data['type'] === 'company') {
-            $rules['company_name'] = ['required', 'string', 'max:255', 'unique:companies'];
-            $rules['description'] = ['required', 'string', 'max:255'];
+            $rules['company_name'] = ['required', 'string', 'min:8', 'max:255', 'unique:companies'];
+            $rules['description'] = ['required', 'string', 'min:8', 'max:255'];
             $rules['contact_phone'] = ['required', 'string', 'min:10', 'max:15', 'unique:companies', 'regex:/^[0-9]{10,15}$/'];
             $rules['logo'] = ['mimes:jpeg,jpg,png', 'max:2048'];
         }
@@ -61,13 +61,10 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
                 'type' => $data['type'],
             ]);
-            // dd( $data['type']);
-            // dd($data);
 
             if ($data['type'] == 'candidate') {
                 $cvPath = null;
                 if (isset($data['cv'])) {
-                    // dd($data['cv']->file());
                     $cv = $data['cv'];
                     $cvPath = $cv->store('cvs', 'candidates');
                 }
@@ -87,7 +84,6 @@ class RegisterController extends Controller
                 }
                 Company::create([
                     'user_id' => $user->id,
-                    // 'email' => $data['email'],
                     'company_name' => $data['company_name'],
                     'description' => $data['description'],
                     'contact_phone' => $data['contact_phone'],
@@ -128,9 +124,9 @@ class RegisterController extends Controller
     {
 
         if ($user->type == 'candidate') {
-            return redirect()->route('candidate.profile')->with('success', 'welcome ' . $user->name);
+            return redirect()->route('candidate.profile')->with('success', 'Welcome ' . $user->name);
         } elseif ($user->type == 'company') {
-            return redirect()->route('company.profile')->with('success', 'welcome ' . $user->name);
+            return redirect()->route('company.profile')->with('success', 'Welcome ' . $user->name);
         }
 
         return redirect($this->redirectTo);

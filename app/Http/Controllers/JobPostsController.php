@@ -21,18 +21,11 @@ class JobPostsController extends Controller
      */
     public function index()
     {
-        // $softDeletedJobs = [];
-        // if (isset(Auth::user()->company)) {
-        //     $companyId = Auth::user()->company->id;
-        //     $jobs = JobPost::where('company_id', $companyId)->get();
-        //     $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
-        //     return view("jobs.index", compact("jobs", "softDeletedJobs"));
-        // }
         $categories = Category::all();
         $cities = City::all();
-        $jobs = JobPost::paginate(5);
-        $technologies= Technology::all();
-        return view("jobs.index", compact("jobs","categories","cities","technologies"));
+        $jobs = JobPost::orderBy('created_at', 'desc')->paginate(5);
+        $technologies = Technology::all();
+        return view("jobs.index", compact("jobs", "categories", "cities", "technologies"));
     }
 
     /**
@@ -100,22 +93,26 @@ class JobPostsController extends Controller
                 $job->technologies()->detach($oldID);
             }
         }
+
         foreach ($request['technologis'] as $tec) {
             if (!in_array($tec, $oldTecIds)) {
                 $job->technologies()->attach($tec);
             }
         }
         $oldCatIds = $job->categories->pluck('id')->toArray();
+
         foreach ($oldCatIds as $oldID) {
             if (!in_array($oldID, $request['categories'])) {
                 $job->categories()->detach($oldID);
             }
         }
+
         foreach ($request['categories'] as $tec) {
             if (!in_array($tec, $oldCatIds)) {
                 $job->categories()->attach($tec);
             }
         }
+
         $job->update($request->all());
         return to_route("jobs.show", compact('job'))->with('success', 'Job Updated Successfully');
     }
@@ -126,7 +123,7 @@ class JobPostsController extends Controller
     public function destroy(JobPost $job)
     {
         $job->delete();
-        return to_route("jobs.index");
+        return to_route("company.jobs");
     }
 
     public function trashed(JobPost $job)
@@ -137,13 +134,12 @@ class JobPostsController extends Controller
 
     public function restore(string $id)
     {
-        // dd("hello");
         $job = JobPost::onlyTrashed()->findOrFail($id);
         $job->restore();
         if (JobPost::onlyTrashed()->count() > 0) {
             return to_route("jobs.trashed");
         } else {
-            return to_route("jobs.index");
+            return to_route("company.jobs");
         }
     }
 
@@ -154,7 +150,7 @@ class JobPostsController extends Controller
         if (JobPost::onlyTrashed()->count() > 0) {
             return to_route("jobs.trashed");
         } else {
-            return to_route("jobs.index");
+            return to_route("company.jobs");
         }
     }
 
@@ -182,12 +178,10 @@ class JobPostsController extends Controller
         return redirect()->back()->with('success', 'Application Reviewed');
     }
 
-
-
-
     public function filter(Request $request)
     {
         $query = JobPost::query();
+
         if ($request->filled('keywords')) {
             $keywords = $request->input('keywords');
             $query->where(function ($q) use ($keywords) {
@@ -195,14 +189,14 @@ class JobPostsController extends Controller
                     ->orWhere('work_type', 'like', "%{$keywords}%")
                     ->orWhere('responsibilities', 'like', "%{$keywords}%")
                 ;
-
             });
         }
+
         if ($request->filled('technology')) {
-                $technologyIds = $request->input('technology');
-                $query->orWhereHas('technologies', function ($q) use ($technologyIds) {
-                    $q->where('technologies.id', $technologyIds);
-                });
+            $technologyIds = $request->input('technology');
+            $query->orWhereHas('technologies', function ($q) use ($technologyIds) {
+                $q->where('technologies.id', $technologyIds);
+            });
         }
 
         if ($request->filled('city_id')) {
@@ -211,11 +205,11 @@ class JobPostsController extends Controller
 
         if ($request->filled('category')) {
             $categoryId = $request->input('category');
-            // whereHas to like many to many relations
             $query->whereHas('categories', function ($q) use ($categoryId) {
                 $q->where('categories.id', $categoryId);
             });
         }
+
         if ($request->filled('min_salary')) {
             $minSalary = $request->input('min_salary');
             $query->where('max_salary', '>=', $minSalary)
@@ -227,12 +221,13 @@ class JobPostsController extends Controller
             $query->where('max_salary', '>=', $maxSalary)
                 ->where('min_salary', '<=', $maxSalary);
         }
+
         $jobs = $query->where('is_active', 1)->paginate(5);
         $categories = Category::all();
         $cities = City::all();
-        $technologies= Technology::all();
+        $technologies = Technology::all();
 
-        return view('jobs.index', compact('jobs', 'cities', 'categories','technologies'));
+        return view('jobs.index', compact('jobs', 'cities', 'categories', 'technologies'));
     }
 
     public function search()

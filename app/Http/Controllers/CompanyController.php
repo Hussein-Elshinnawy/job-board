@@ -7,7 +7,6 @@ use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-// use Storage;
 
 class CompanyController extends Controller
 {
@@ -23,7 +22,7 @@ class CompanyController extends Controller
     {
         $softDeletedJobs = [];
         $companyId = Auth::user()->company->id;
-        $jobs = JobPost::where('company_id', $companyId)->get();
+        $jobs = JobPost::where('company_id', $companyId)->orderBy('created_at', 'desc')->get();
         $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
         return view("company.jobs", compact("jobs", "softDeletedJobs"));
     }
@@ -57,7 +56,6 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
         return view('company.edit', compact('company'));
     }
 
@@ -75,13 +73,13 @@ class CompanyController extends Controller
             'description' => 'required|string|max:255',
             'logo' => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ]);
+
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('logos', 'companies');
 
             if ($company->logo) {
                 Storage::disk('companies')->delete($company->logo);
             }
-
             $company->logo = $logoPath;
         }
 
@@ -92,7 +90,6 @@ class CompanyController extends Controller
         $company->update([
             'contact_phone' => $request->contact_phone,
             'description' => $request->description,
-            // 'logo' => $logoPath,
         ]);
 
         return redirect()->route('company.profile')->with('success', 'Profile updated successfully.');
@@ -106,6 +103,7 @@ class CompanyController extends Controller
         if ($company->logo) {
             $disk = Storage::disk('companies');
             $companyLogo = $company->logo;
+
             if ($disk->exists($companyLogo)) {
                 $disk->delete($companyLogo);
             }
@@ -115,6 +113,6 @@ class CompanyController extends Controller
         $company->delete();
 
         Auth::logout();
-        return redirect()->route('home')->with('success', 'Profile deleted successfully.');
+        return redirect()->route('homepage')->with('success', 'Profile deleted successfully.');
     }
 }

@@ -66,6 +66,7 @@ class CandidateController extends Controller
             'job_title' => 'required|string|max:255',
             'cv' => 'nullable|mimes:pdf,doc,docx,jpeg,jpg,png|max:2048',
         ]);
+
         if ($request->hasFile('cv')) {
             $cvPath = $request->file('cv')->store('cvs', 'candidates');
 
@@ -75,7 +76,6 @@ class CandidateController extends Controller
 
             $candidate->cv = $cvPath;
         }
-
         $candidate->user->name = $request->name;
         $candidate->user->email = $request->email;
         $candidate->user->save();
@@ -97,6 +97,7 @@ class CandidateController extends Controller
         if ($candidate->cv) {
             $disk = Storage::disk('candidates');
             $candidateCv = $candidate->cv;
+
             if ($disk->exists($candidateCv)) {
                 $disk->delete($candidateCv);
             }
@@ -106,6 +107,6 @@ class CandidateController extends Controller
         $candidate->delete();
 
         Auth::logout();
-        return redirect()->route('home')->with('success', 'Profile deleted successfully.');
+        return redirect()->route('homepage')->with('success', 'Profile deleted successfully.');
     }
 }

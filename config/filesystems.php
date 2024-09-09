@@ -58,7 +58,7 @@ return [
 
         'candidates' => [
             'driver' => 'local',
-            'root' => public_path('assets/candidates'),
+            'root' => public_path('candidates'),
             'visibility' => 'public',
             'url' => env('APP_URL') . '/candidates',
             'throw' => false,
@@ -66,12 +66,12 @@ return [
 
         'companies' => [
             'driver' => 'local',
-            'root' => public_path('assets/companies'),
+            'root' => public_path('companies'),
             'visibility' => 'public',
             'url' => env('APP_URL') . '/companies',
             'throw' => false,
         ],
-        
+
         'filament' => [
             'driver' => 'local',
             'root' => public_path('assets/'),

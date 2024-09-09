@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-Use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class IsAdmin
 {
@@ -20,7 +20,7 @@ class IsAdmin
         $user = Auth::user();
 
         if ($user?->type !== 'admin') {
-            return redirect()->route('home')->with('error', 'Unauthorized access.')->with('error', 'You\'r not authorized.');;
+            return redirect()->route('homepage')->with('error', 'Unauthorized access.')->with('error', 'You\'r not authorized.');;
         }
 
         return $next($request);
