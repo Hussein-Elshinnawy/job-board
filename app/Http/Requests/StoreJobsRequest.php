@@ -25,7 +25,7 @@ class StoreJobsRequest extends FormRequest
             'title' => ['required'],
             'work_type' => ['required', 'in:onsite,remote,hybrid,freelance'],
             'city_id' => ['required', 'exists:cities,id'],
-            'vacancies' => ['required', 'numeric'],
+            'vacancies' => ['required', 'numeric', "gt:0"],
             'min_salary' => [
                 'required',
                 'numeric',
@@ -65,6 +65,7 @@ class StoreJobsRequest extends FormRequest
             'city.exists' => 'Please select valid city.',
             'vacancies.required' => 'Please enter number of vacancies.',
             'vacancies.numeric' => 'Please enter valid number of vacancies.',
+            'vacancies.gt' => 'Number of vacancies must be greater than or equal to 1.',
             'min_salary.required' => 'Please enter a minimum salary.',
             'min_salary.numeric' => 'Please enter valid minimum salary.',
             'max_salary.required' => 'Please enter a maximum salary.',
