@@ -31,91 +31,94 @@
 
 <body>
     <div id="app" class="d-flex flex-column min-vh-100 bglight">
-        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
+        <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0 ">
             <div class="container">
-                <a class="navbar-brand {{ Route::currentRouteName() === "homepage" ? "coprimary fw-semibold" : "" }}" href="{{ route("homepage") }}">
-                    <img src="{{ asset("assets/" ."logo.jpg") }}" class="img-thumbnail rounded-circle object-fit-cover" style="width: 6%" alt="Job-Board">
+                <a class="navbar-brand my-2" href="{{ route('homepage') }}">
+                    <img src="{{ asset('assets/' . 'logo.jpg') }}" class="img-thumbnail rounded-circle object-fit-cover"
+                        style="height: 50px;" alt="Job-Board">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __("Toggle navigation") }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link  "
+                            href="{{ route('homepage') }}">Explore Jobs</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        @if (isset(Auth::user()->company))
-                            <li class="nav-item">
-                                <a class="nav-link {{ Route::currentRouteName() === "company.jobs" ? "coprimary fw-semibold" : "" }}"
-                                    href="{{ route("company.jobs") }}">My Jobs</a>
-                            </li>
-                        @endif
-                    </ul>
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav me-auto">
+                            @if (isset(Auth::user()->company))
+                                {{-- LI ONE ############## --}}
+                                <li class="nav-item ">
+                                    <a class="nav-link"
+                                        id="myJobs" href="{{ route('company.jobs') }}">My Jobs</a>
+                                </li>
+                                {{-- LI TWO ############## --}}
+                                <li class="nav-item">
+                                    <a class="nav-link   "
+                                        id="postJob" href="{{ route('jobs.create') }}">Post A Job</a>
+                                </li>
+                            @endif
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav  ms-auto">
-                        <!-- Authentication Links -->
-                        {{-- <li class="nav-item">
-                            <a class="nav-link coprimary fw-semibold" href="{{ route("homepage") }}">Home</a>
-                        </li> --}}
-                        @if (Auth::check())
-                            <li class="nav-item">
-                                @if (isset(Auth::user()->company))
-                                    <a class="nav-link {{ Route::currentRouteName() === "company.profile" ? "coprimary fw-semibold" : "" }}"
-                                        href="{{ route("company.profile") }}">Profile</a>
-                                @elseif (isset(Auth::user()->candidate))
-                                    <a class="nav-link {{ Route::currentRouteName() === "candidate.profile" ? "coprimary fw-semibold" : "" }}"
-                                        href="{{ route("candidate.profile") }}">Profile</a>
+                            {{-- LI THREE::: login or user name ############## --}}
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link "
+                                            href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
                                 @endif
-                            </li>
-                        @endif
-                        {{-- @if (isset(Auth::user()->company))
-                            <li class="nav-item">
-                                <a class="nav-link {{ Route::currentRouteName() === "company.profile" ? "coprimary fw-semibold" : "" }}"
-                                    href="{{ route("company.profile") }}">Profile</a>
-                            </li>
-                        @endif --}}
-
-                        @guest
-                            @if (Route::has("login"))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route("login") }}">{{ __("Login") }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has("register"))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route("register") }}">{{ __("Register") }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route("logout") }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __("Logout") }}
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route("logout") }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
+
+                        {{-- LI FOUR :: profile caompany/candidaet or register ############## --}}
+                        <ul class="navbar-nav">
+                            <li class="nav-item bgprimary ms-2  align-content-center px-3 py-3">
+                                @if (Auth::check())
+                                    @if (isset(Auth::user()->company))
+                                        <a class="nav-link text-light "
+                                            href="{{ route('company.profile') }}">Profile</a>
+                                    @elseif (isset(Auth::user()->candidate))
+                                        <a class="nav-link text-light "
+                                            href="{{ route('candidate.profile') }}">Profile</a>
+                                    @endif
+                                @else
+                                    @if (Route::has('register'))
+                                        <a class="nav-link text-light "
+                                            href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    @endif
+                                @endif
                             </li>
-                        @endguest
-                    </ul>
-                </div>
-                @if (isset(Auth::user()->company))
-                    <div class=" bg-success justify-content-center align-content-center px-4 py-3">
-                        <a href="{{ route("jobs.create") }}" class="link m-auto fw-semibold link-underline-opacity-0 link-light colightopacity">Post a Job
-                            &#8594;</a>
+                        </ul>
                     </div>
-                @endif
+                </div>
             </div>
         </nav>
 
