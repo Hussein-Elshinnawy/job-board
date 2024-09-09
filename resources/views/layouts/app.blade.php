@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -8,19 +8,19 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield("title")</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!-- Scripts -->
-    @vite(["resources/sass/app.scss", "resources/js/app.js"])
-    @vite(["resources/sass/app.scss", "resources/js/app.js"])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
@@ -40,7 +40,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link  "
+                        <a class="nav-link @if (Route::currentRouteName() === 'homepage') coprimary fw-semibold @endif "
                             href="{{ route('homepage') }}">Explore Jobs</a>
                     </li>
                 </ul>
@@ -57,12 +57,12 @@
                             @if (isset(Auth::user()->company))
                                 {{-- LI ONE ############## --}}
                                 <li class="nav-item ">
-                                    <a class="nav-link"
+                                    <a class="nav-link @if (Route::currentRouteName() === 'company.jobs') coprimary fw-semibold @endif "
                                         id="myJobs" href="{{ route('company.jobs') }}">My Jobs</a>
                                 </li>
                                 {{-- LI TWO ############## --}}
                                 <li class="nav-item">
-                                    <a class="nav-link   "
+                                    <a class="nav-link @if (Route::currentRouteName() === 'jobs.create') coprimary fw-semibold @endif  "
                                         id="postJob" href="{{ route('jobs.create') }}">Post A Job</a>
                                 </li>
                             @endif
@@ -71,7 +71,7 @@
                             @guest
                                 @if (Route::has('login'))
                                     <li class="nav-item">
-                                        <a class="nav-link "
+                                        <a class="nav-link @if (Route::currentRouteName() === 'login') coprimary fw-semibold @endif "
                                             href="{{ route('login') }}">{{ __('Login') }}</a>
                                     </li>
                                 @endif
@@ -85,7 +85,7 @@
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                                         document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 
@@ -103,15 +103,15 @@
                             <li class="nav-item bgprimary ms-2  align-content-center px-3 py-3">
                                 @if (Auth::check())
                                     @if (isset(Auth::user()->company))
-                                        <a class="nav-link text-light "
+                                        <a class="nav-link text-light @if (Route::currentRouteName() === 'company.profile') fw-semibold @endif"
                                             href="{{ route('company.profile') }}">Profile</a>
                                     @elseif (isset(Auth::user()->candidate))
-                                        <a class="nav-link text-light "
+                                        <a class="nav-link text-light @if (Route::currentRouteName() === 'candidate.profile') fw-semibold @endif"
                                             href="{{ route('candidate.profile') }}">Profile</a>
                                     @endif
                                 @else
                                     @if (Route::has('register'))
-                                        <a class="nav-link text-light "
+                                        <a class="nav-link text-light @if (Route::currentRouteName() === 'register') fw-semibold @endif"
                                             href="{{ route('register') }}">{{ __('Register') }}</a>
                                     @endif
                                 @endif
@@ -123,7 +123,7 @@
         </nav>
 
         <main class="container bgwhite flex-grow-1">
-            @yield("content")
+            @yield('content')
         </main>
 
         <footer class="container bgdark colight py-4">
@@ -206,12 +206,12 @@
             "timeOut": "3000"
         };
 
-        @if (session("success"))
-            toastr.success("{{ session("success") }}");
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
         @endif
 
-        @if (session("error"))
-            toastr.error("{{ session("error") }}");
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
         @endif
     </script>
 </body>
