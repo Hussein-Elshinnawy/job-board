@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Storage;
+use Illuminate\Support\Facades\Storage;
+// use Storage;
+
 class CompanyController extends Controller
 {
 
     public function index()
     {
         $user = Auth::user();
-        $company = $user->company()->with('user')->first();
-        // dd($company->user->name);
+        $company = $user->company->where('user_id', $user->id)->with('user')->first();
         return view('company.profile', compact('company'));
+    }
 
-        // $user = Auth::user()->load('companies');
-        // $company = $user->companies;
-
-        // return view("company.profile", compact('company','user'));
+    public function allJobs()
+    {
+        $softDeletedJobs = [];
+        $companyId = Auth::user()->company->id;
+        $jobs = JobPost::where('company_id', $companyId)->get();
+        $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
+        return view("company.jobs", compact("jobs", "softDeletedJobs"));
     }
 
     /**
@@ -60,16 +66,13 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
-        // dd($request,$company);
-          $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
-            'email'=> 'required|email|max:255|unique:users,email,'.$company->user->id,
-            'contact_phone' => 'required|string|max:15|unique:companies,contact_phone,'.$company->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $company->user->id,
+            'contact_phone' => 'required|string|max:15|unique:companies,contact_phone,' . $company->id,
             'description' => 'required|string|max:255',
             'logo' => 'nullable|mimes:png,jpg,jpeg,gif|max:2048',
         ]);
-        // $oldlogo=$company->logo;
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('logos', 'companies');
 
@@ -87,11 +90,9 @@ class CompanyController extends Controller
         $company->update([
             'contact_phone' => $request->contact_phone,
             'description' => $request->description,
-            // 'logo' => $logoPath,
         ]);
 
         return redirect()->route('company.profile')->with('success', 'Profile updated successfully.');
-
     }
 
     /**
@@ -99,15 +100,15 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-         if ($company->logo) {
+        if ($company->logo) {
             $disk = Storage::disk('companies');
             $companyLogo = $company->logo;
             if ($disk->exists($companyLogo)) {
-                       $disk->delete($companyLogo);
+                $disk->delete($companyLogo);
             }
         }
-        $user= $company->user;
-          $user->delete();
+        $user = $company->user;
+        $user->delete();
         $company->delete();
 
         Auth::logout();

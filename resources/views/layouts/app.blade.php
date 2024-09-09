@@ -33,8 +33,8 @@
     <div id="app" class="d-flex flex-column min-vh-100 bglight">
         <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white shadow-sm fftitle p-0">
             <div class="container">
-                <a class="navbar-brand coprimary fw-bolder" href="{{ url("/") }}">
-                    JobBoard
+                <a class="navbar-brand {{ Route::currentRouteName() === "homepage" ? "coprimary fw-semibold" : "" }}" href="{{ route("homepage") }}">
+                    Job Board
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __("Toggle navigation") }}">
@@ -44,15 +44,38 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        @if (isset(Auth::user()->company))
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName() === "company.jobs" ? "coprimary fw-semibold" : "" }}"
+                                    href="{{ route("company.jobs") }}">My Jobs</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav  ms-auto">
                         <!-- Authentication Links -->
-                        <li class="nav-item">
-                            <a class="nav-link coprimary fw-semibold" href="{{ url("/") }}">Home</a>
-                        </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link coprimary fw-semibold" href="{{ route("homepage") }}">Home</a>
+                        </li> --}}
+                        @if (Auth::check())
+                            <li class="nav-item">
+                                @if (isset(Auth::user()->company))
+                                    <a class="nav-link {{ Route::currentRouteName() === "company.profile" ? "coprimary fw-semibold" : "" }}"
+                                        href="{{ route("company.profile") }}">Profile</a>
+                                @elseif (isset(Auth::user()->candidate))
+                                    <a class="nav-link {{ Route::currentRouteName() === "candidate.profile" ? "coprimary fw-semibold" : "" }}"
+                                        href="{{ route("candidate.profile") }}">Profile</a>
+                                @endif
+                            </li>
+                        @endif
+                        {{-- @if (isset(Auth::user()->company))
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName() === "company.profile" ? "coprimary fw-semibold" : "" }}"
+                                    href="{{ route("company.profile") }}">Profile</a>
+                            </li>
+                        @endif --}}
+
                         @guest
                             @if (Route::has("login"))
                                 <li class="nav-item">
@@ -87,10 +110,12 @@
                         @endguest
                     </ul>
                 </div>
-                <div class=" bg-success justify-content-center align-content-center px-4 py-3">
-                    <a href="/" class="link m-auto fw-semibold link-underline-opacity-0 link-light colightopacity">Post a
-                        Job &#8594;</a>
-                </div>
+                @if (isset(Auth::user()->company))
+                    <div class=" bg-success justify-content-center align-content-center px-4 py-3">
+                        <a href="{{ route("jobs.create") }}" class="link m-auto fw-semibold link-underline-opacity-0 link-light colightopacity">Post a Job
+                            &#8594;</a>
+                    </div>
+                @endif
             </div>
         </nav>
 

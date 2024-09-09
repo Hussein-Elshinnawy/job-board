@@ -27,15 +27,6 @@
                     @foreach ($workType as $work)
                         <option {{ $work == $job->work_type ? "selected" : "" }} value="{{ $work }}">
                             {{ $work == "onsite" ? "On Site" : ($work == "remote" ? "Remote" : ($work == "hybrid" ? "Hybrid" : "Freelance")) }}
-                            {{-- @if ($work == "onsite")
-                                On Site
-                            @elseif ($work == "remote")
-                                Remote
-                            @elseif ($work == "hybrid")
-                                Hybrid
-                            @else
-                                Freelance
-                            @endif --}}
                         </option>
                     @endforeach
                 </select>
@@ -44,13 +35,13 @@
                 @enderror
             </div>
             <div class="mb-3 ">
-                <label for="city" class="">City:</label>
-                <select class="form-select d-inline w-auto" id="city" name="city">
+                <label for="city_id" class="">City:</label>
+                <select class="form-select d-inline w-auto" id="city_id" name="city_id">
                     @foreach ($cities as $city)
-                        <option {{ $city->id == $job->city_id ? "selected" : "" }} value="{{ $city->name }}">{{ $city->name }}</option>
+                        <option {{ $city->id == $job->city_id ? "selected" : "" }} value="{{ $city->id }}">{{ $city->name }}</option>
                     @endforeach
                 </select>
-                @error("city")
+                @error("city_id")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>

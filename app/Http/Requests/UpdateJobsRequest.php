@@ -24,7 +24,7 @@ class UpdateJobsRequest extends FormRequest
         return [
             'title' => ['required'],
             'work_type' => ['required', 'exists:job_posts,work_type'],
-            'city' => ['required', 'string', 'exists:cities,name'],
+            'city_id' => ['required', 'exists:cities,id'],
             'vacancies' => ['required', 'numeric'],
             'min_salary' => [
                 'required',
@@ -61,8 +61,8 @@ class UpdateJobsRequest extends FormRequest
             'title.required' => 'Please enter a title.',
             'work_type.required' => 'Please select a work type.',
             'work_type.exists' => 'Please select valid work type.',
-            'city.required' => 'Please select a city.',
-            'city.exists' => 'Please select valid city.',
+            'city_id.required' => 'Please select a city.',
+            'city_id.exists' => 'Please select valid city.',
             'vacancies.required' => 'Please enter number of vacancies.',
             'vacancies.numeric' => 'Please enter valid number of vacancies.',
             'min_salary.required' => 'Please enter a minimum salary.',
@@ -73,7 +73,7 @@ class UpdateJobsRequest extends FormRequest
             'deadline.date' => 'Please enter a valid date.',
             'deadline.after' => 'Please enter a valid date.',
             'description.required' => 'Please enter job description.',
-            'qualifications.required' => 'Please enter job qualificationss.',
+            'qualifications.required' => 'Please enter job qualifications.',
             'responsibilities.required' => 'Please enter job responsibilities.',
             'benefits.required' => 'Please enter job benefits.',
         ];

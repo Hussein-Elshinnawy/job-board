@@ -1,6 +1,12 @@
 @extends("layouts.app")
 
 @section("content")
+    @isset($errors)
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+    @endisset
+
     <div class="py-5 px-3">
         <form action="{{ route("jobs.store") }}" method="POST">
             @csrf
@@ -32,14 +38,21 @@
                 @enderror
             </div>
             <div class="mb-3 ">
-                <label for="city" class="">City:</label>
-                <select class="form-select d-inline w-auto" id="city" name="city">
+                <label for="city_id">City:</label>
+                <select class="form-select d-inline w-auto" id="city_id" name="city_id">
                     <option selected disabled>Please Select City</option>
                     @foreach ($cities as $city)
-                        <option {{ old("city") == $city->id ? "selected" : "" }} value="{{ $city->id }}">{{ $city->name }}</option>
+                        <option {{ old("city_id") == $city->id ? "selected" : "" }} value="{{ $city->id }}">{{ $city->name }}</option>
                     @endforeach
                 </select>
-                @error("city")
+                @error("city_id")
+                    <div class="alert alert-danger my-3">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="vacancies" class="form-label">Vacancies:</label>
+                <input type="number" class="form-control d-inline-block w-auto" id="vacancies" name="vacancies" value="{{ old("vacancies") }}">
+                @error("vacancies")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>
@@ -70,9 +83,9 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="qualification" class="form-label">Qualifications:</label>
-                <textarea class="form-control" id="qualification" name="qualification" rows="10">{{ old("qualification") }}</textarea>
-                @error("qualification")
+                <label for="qualifications" class="form-label">Qualifications:</label>
+                <textarea class="form-control" id="qualifications" name="qualifications" rows="10">{{ old("qualifications") }}</textarea>
+                @error("qualifications")
                     <div class="alert alert-danger my-3">{{ $message }}</div>
                 @enderror
             </div>

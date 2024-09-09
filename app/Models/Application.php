@@ -25,4 +25,19 @@ class Application extends Model
     {
         return $this->belongsTo(Candidate::class);
     }
+
+    public function review()
+    {
+        $this->update(['status' => 'reviewed']);
+    }
+
+    public function accept()
+    {
+        $this->update(['status' => 'accepted']);
+    }
+
+    public function reject()
+    {
+        $this->update(['status' => 'rejected']);
+    }
 }

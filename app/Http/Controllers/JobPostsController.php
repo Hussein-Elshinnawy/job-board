@@ -18,6 +18,13 @@ class JobPostsController extends Controller
      */
     public function index()
     {
+        // $softDeletedJobs = [];
+        // if (isset(Auth::user()->company)) {
+        //     $companyId = Auth::user()->company->id;
+        //     $jobs = JobPost::where('company_id', $companyId)->get();
+        //     $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', $companyId)->get();
+        //     return view("jobs.index", compact("jobs", "softDeletedJobs"));
+        // }
         $jobs = JobPost::all();
         return view("jobs.index", compact("jobs"));
     }
@@ -29,8 +36,6 @@ class JobPostsController extends Controller
     {
         $cities = City::all();
         return view("jobs.create", compact("cities"));
-        $cities = City::all();
-        return view("jobs.create", compact("cities"));
     }
 
     /**
@@ -38,7 +43,10 @@ class JobPostsController extends Controller
      */
     public function store(StoreJobsRequest $request)
     {
-        dd($request->all());
+        $data = $request->all();
+        $data['company_id'] = Auth::user()->company->id;
+        $job = JobPost::create($data);
+        return to_route("jobs.show", $job);
     }
 
     /**
@@ -61,9 +69,6 @@ class JobPostsController extends Controller
         $cities = City::all();
         $workType = ["onsite", "remote", "hybrid", "freelance"];
         return view("jobs.edit", compact("job", 'workType', 'cities'));
-        $cities = City::all();
-        $workType = ["onsite", "remote", "hybrid", "freelance"];
-        return view("jobs.edit", compact("job", 'workType', 'cities'));
     }
 
     /**
@@ -72,8 +77,6 @@ class JobPostsController extends Controller
     // public function update(Request $request, JobPost $job)
     public function update(UpdateJobsRequest $request, JobPost $job)
     {
-        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
-        dd($job->max_salary, $job->work_type, $request->max_salary, $request->work_type);
         $job->update($request->all());
         return to_route("jobs.show", compact('job'));
     }
@@ -83,8 +86,63 @@ class JobPostsController extends Controller
      */
     public function destroy(JobPost $job)
     {
-        dd($job);
+        $job->delete();
+        return to_route("jobs.index");
     }
+
+    public function trashed(JobPost $job)
+    {
+        $softDeletedJobs = JobPost::onlyTrashed()->where('company_id', Auth::user()->company->id)->get();
+        return view("jobs.trashed", compact("softDeletedJobs"));
+    }
+
+    public function restore(string $id)
+    {
+        // dd("hello");
+        $job = JobPost::onlyTrashed()->findOrFail($id);
+        $job->restore();
+        if (JobPost::onlyTrashed()->count() > 0) {
+            return to_route("jobs.trashed");
+        } else {
+            return to_route("jobs.index");
+        }
+    }
+
+    public function forceDelete(string $id)
+    {
+        $job = JobPost::onlyTrashed()->findOrFail($id);
+        $job->forceDelete();
+        if (JobPost::onlyTrashed()->count() > 0) {
+            return to_route("jobs.trashed");
+        } else {
+            return to_route("jobs.index");
+        }
+    }
+
+    public function applications(JobPost $job)
+    {
+        $applications = Application::where("job_post_id", $job->id)->get();
+        return view("application.index", compact("applications"));
+    }
+
+    public function accept(Application $application)
+    {
+        $application->accept();
+        return redirect()->route('jobs.show', $application->job_post_id)->with('success', 'Application Accepted');
+    }
+
+    public function reject(Application $application)
+    {
+        $application->reject();
+        return redirect()->route('jobs.show', $application->job_post_id)->with('danger', 'Application Rejected');
+    }
+
+    public function review(Application $application)
+    {
+        $application->review();
+        return redirect()->route('jobs.show', $application->job_post_id)->with('warning', 'Application Reviewed');
+    }
+
     public function filter(Request $request)
     {
         // dd($request);
@@ -120,6 +178,7 @@ class JobPostsController extends Controller
 
         return view('jobs.search', compact('jobs', 'cities', 'categories'));
     }
+
     public function search()
     {
         $categories = Category::all();
