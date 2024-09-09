@@ -4,16 +4,8 @@
         {{--  SHOW +/- EDIT OLD COMMENTS --}}
         <?php $isAuthurized = isset(Auth::user()->candidate) && $comment?->candidate_id == Auth::user()->candidate->id; ?>
         @if (!$isAuthurized)
-            {{-- Only Show and report --}}
+            {{-- Only Show --}}
             <textarea class="myTextarea form-control" disabled rows="3" cols="10">{{ $comment?->body }}</textarea>
-            <div class="dropdown more-options">
-                <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Report</a></li>
-                </ul>
-            </div>
             <span class="by-you"> {{ $comment->candidate->user->name }} </span>
         @else
             {{-- Show & EDIT & DELETE --}}
@@ -28,7 +20,7 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Report</a></li>
+                    {{-- <li><a class="dropdown-item" href="#">Report</a></li> --}}
                     <li><button class="dropdown-item" onclick="edit('myTextarea-' + {{ $comment?->id }})">Edit</button>
                     </li>
                     <form action="{{ route('comment.destroy', $comment?->id) }}" method="post">

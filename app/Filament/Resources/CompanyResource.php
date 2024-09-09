@@ -36,9 +36,6 @@ class CompanyResource extends Resource
                     ->tel()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\FileUpload::make('logo')
-                    ->directory('images/company')
-                    ->avatar()
 
 
             ]);
@@ -48,12 +45,12 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('company_name')
+                Tables\Columns\TextColumn::make('company_name')->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('contact_phone')
+                Tables\Columns\TextColumn::make('contact_phone')->sortable()
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('logo')
                     ->searchable()->toggleable(isToggledHiddenByDefault: true),
@@ -75,6 +72,8 @@ class CompanyResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

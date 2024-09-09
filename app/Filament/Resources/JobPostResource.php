@@ -89,7 +89,7 @@ class JobPostResource extends Resource
                 Tables\Columns\TextColumn::make('company.company_name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('title')->sortable()
                     ->searchable(),
                 Tables\Columns\SelectColumn::make('status')->options([
                     'pending' => 'Pending',
@@ -97,7 +97,7 @@ class JobPostResource extends Resource
                     'rejected' => 'Rejected'
                 ])->default('pending')->width(200)->selectablePlaceholder(false)
                     ->sortable(),
-                Tables\Columns\ToggleColumn::make('is_active'),
+                Tables\Columns\ToggleColumn::make('is_active')->sortable(),
                 // Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('city.name')
                     ->numeric()->toggleable(isToggledHiddenByDefault: true)

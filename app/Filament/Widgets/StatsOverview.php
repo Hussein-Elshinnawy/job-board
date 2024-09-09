@@ -19,9 +19,9 @@ class StatsOverview extends BaseWidget
     protected function getStats(): array
     {
         $users = User::count();
-        $company = Company::count();
-        $admins = Admin::count();
-        $candidates = Candidate::count();
+        $company = User::query()->where('type', 'company')->count();
+        $admins =User::query()->where('type', 'admin')->count();
+        $candidates = User::query()->where('type', 'candidate')->count();
         $postJob = JobPost::count();
         $applciations = Application::count();
         $categories = Category::count();
@@ -29,7 +29,7 @@ class StatsOverview extends BaseWidget
         $cities = City::count();
         return [
 
-            Stat::make('Users', $users)->description('Admins:' . $admins . ' Candidates:' . $candidates . ' Companies:' . $company)->descriptionIcon('heroicon-o-user-group')->color('success'),
+            Stat::make('Users', $users)->description('Admins:' . $admins ."\n" .' Candidates:' . $candidates ."\n" .  ' Companies:' . $company)->descriptionIcon('heroicon-o-user-group')->color('success'),
             Stat::make('Job Posts', $postJob),
             Stat::make('Applications', $applciations),
             // Stat::make('Companies', $company),
