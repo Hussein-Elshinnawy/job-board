@@ -1,24 +1,22 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('title')
+@section("title")
     All Jobs
 @endsection
-@section('content')
+@section("content")
     <div>
-        <form action="{{ route('jobs.filter') }}" class="w-100 d-flex mt-5 px-5" method="GET">
+        <form action="{{ route("jobs.filter") }}" class="w-100 d-flex mt-5 px-5" method="GET">
             <div class="col-md-5">
                 <input type="text" name="keywords" id="keywords" placeholder="Keyword (Job Title, Technology, Work type, ...)" class="form-control"
                     style="width: 100%;">
             </div>
 
             <div class="col-md-1">
-                <input type="number" name="min_salary" class="form-control" placeholder="Min" step="1000"
-                    style="width: 100%;">
+                <input type="number" name="min_salary" class="form-control" placeholder="Min" step="1000" style="width: 100%;">
             </div>
 
             <div class="col-md-1">
-                <input type="number" name="max_salary" class="form-control" placeholder="Max" step="1000"
-                    style="width: 100%;">
+                <input type="number" name="max_salary" class="form-control" placeholder="Max" step="1000" style="width: 100%;">
             </div>
             <div class="col-md-2">
                 <select name="city_id" class="form-control" style="width: 100%;">
@@ -39,7 +37,6 @@
             </div>
             <button type="submit" class=" w-25 btn text-light bgprimary">Search</button>
 
-
         </form>
         @if (isset($jobs))
             @if ($jobs->isEmpty())
@@ -51,10 +48,10 @@
                 @foreach ($jobs as $job)
                     {{-- same componet --}}
                     <div class="m-5 p-4 job-item">
-                        <a href="{{ route('jobs.show', $job) }}" class="text-decoration-none cogrey">
+                        <a href="{{ route("jobs.show", $job) }}" class="text-decoration-none cogrey">
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="{{ asset('assets/images/company/logo.jpg') }}" width="100" height="100"
+                                    <img src="{{ asset("assets/images/company/logo.jpg") }}" width="100" height="100"
                                         style="border: 1px solid #dee2e6 !important">
                                 </div>
                                 <div class="col-7">
@@ -80,7 +77,7 @@
                                     <p class="me-4">
                                         <i class="fa-solid fa-calendar-days coprimary me-1"></i>
                                         Date Line:
-                                        {{ \Carbon\Carbon::parse($job->deadline)->format('d M Y') }}
+                                        {{ \Carbon\Carbon::parse($job->deadline)->format("d M Y") }}
                                     </p>
 
                                 </div>
@@ -88,13 +85,11 @@
                         </a>
                     </div>
                 @endforeach
-                {{-- <div class="pagination">
+                <div class="pagination">
                     {{ $jobs->links() }}
-                </div> --}}
+                </div>
             @endif
         @endif
     </div>
-
-
 
 @endsection

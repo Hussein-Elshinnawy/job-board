@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('title')
+@section("title")
     All Jobs
 @endsection
 
-@section('content')
+@section("content")
     <div class="py-3">
         <a href="{{ route("jobs.search") }}"> search</a>
         <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Listing</h1>

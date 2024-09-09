@@ -2,17 +2,12 @@
 
 @section("content")
     <div class="py-5 px-3">
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="alert alert-danger my-3">{{ $error }}</div>
-            @endforeach
-        @endif
         <form action="{{ route("jobs.update", $job) }}" method="POST">
             @csrf
             @method("PUT")
             <h1 class="text-center pt-5 fw-bolder fftitle codark">Job Edit</h1>
             <div class="d-flex justify-content-end mb-5">
-                <a href="{{ route("jobs.show", $job) }}" class="btn bg-warning fw-bolder fs-4">Back to Post</a>
+                <a href="{{ route("jobs.show", $job) }}" class="btn bg-warning cowhite fw-bolder fs-4">Back to Post</a>
             </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Title:</label>

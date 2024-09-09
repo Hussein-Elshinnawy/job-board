@@ -68,10 +68,12 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email'=> 'required|email|max:255|unique:users,email,'.$company->user->id,'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-            'contact_phone' => 'required|string|min:10|max:15|unique:companies,contact_phone,'.$company->id,'regex:/^[0-9]{10,15}/',
+            'email' => 'required|email|max:255|unique:users,email,' . $company->user->id,
+            'regex:/^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+            'contact_phone' => 'required|string|min:10|max:15|unique:companies,contact_phone,' . $company->id,
+            'regex:/^[0-9]{10,15}/',
             'description' => 'required|string|max:255',
-            'logo' => 'nullable|mimes:png,jpg,jpeg,gif|max:2048',
+            'logo' => 'nullable|mimes:png,jpg,jpeg|max:2048',
         ]);
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('logos', 'companies');
@@ -91,8 +93,6 @@ class CompanyController extends Controller
             'contact_phone' => $request->contact_phone,
             'description' => $request->description,
             // 'logo' => $logoPath,
-            'contact_phone' => $request->contact_phone,
-            'description' => $request->description,
         ]);
 
         return redirect()->route('company.profile')->with('success', 'Profile updated successfully.');
