@@ -23,7 +23,7 @@ class StoreJobsRequest extends FormRequest
     {
         return [
             'title' => ['required'],
-            'work_type' => ['required', 'exists:job_posts,work_type'],
+            'work_type' => ['required', 'in:onsite,remote,hybrid,freelance'],
             'city_id' => ['required', 'exists:cities,id'],
             'vacancies' => ['required', 'numeric'],
             'min_salary' => [
