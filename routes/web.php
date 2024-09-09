@@ -18,7 +18,7 @@ use App\Http\Middleware\CheckUserType;
 
 //     Route::get('/company/profile', [CompanyController::class, 'index'])->name('company.profile');
 // });
-
+Auth::routes();
 
 Route::middleware(['auth', 'checkUserType:candidate'])->group(function () {
     Route::get('/candidate/profile', [CandidateController::class, 'index'])->name('candidate.profile');
@@ -34,6 +34,7 @@ Route::middleware(['auth', 'checkUserType:company'])->group(function () {
 // Route::get('/candidate/{candidate}/edit', [CandidateController::class, 'edit'])->name('candidate.edit');
 // Route::resource('candidate', CandidateController::class);
 // Route::resource('company', CompanyController::class);
+
 Auth::routes();
 Route::get('/', [JobPostsController::class, 'index'])->name('homepage');
 
@@ -57,3 +58,4 @@ Route::get('/application/{application}/accept', [JobPostsController::class, 'acc
 Route::get('/application/{application}/reject', [JobPostsController::class, 'reject'])->name('application.reject');
 Route::get('/application/{application}/review', [JobPostsController::class, 'review'])->name('application.review');
 Route::resource('/comment', CommentController::class);
+

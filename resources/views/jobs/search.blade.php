@@ -5,24 +5,41 @@
 @endsection
 @section('content')
     <div>
-        <form action="{{ route('jobs.filter') }}" class="w-100 d-flex mt-5" method="GET">
-            {{-- this gets any thing related to title, description , responsility an work type  --}}
-            <input type="text" name="keywords" id="keywords" placeholder="Keyword" class="form-control">
-            <select name="city_id" class="dropdown">
-                <option value="">Select Location</option>
-                @foreach ($cities as $city)
-                    <option value="{{ $city->id }}">{{ $city->name }}</option>
-                @endforeach
-            </select>
+        <form action="{{ route('jobs.filter') }}" class="w-100 d-flex mt-5 px-5" method="GET">
+            <div class="col-md-5">
+                <input type="text" name="keywords" id="keywords" placeholder="Keyword (Job Title, Technology, Work type, ...)" class="form-control"
+                    style="width: 100%;">
+            </div>
 
-            <select name="category">
-                <option value="">Select Category</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
+            <div class="col-md-1">
+                <input type="number" name="min_salary" class="form-control" placeholder="Min" step="1000"
+                    style="width: 100%;">
+            </div>
 
+            <div class="col-md-1">
+                <input type="number" name="max_salary" class="form-control" placeholder="Max" step="1000"
+                    style="width: 100%;">
+            </div>
+            <div class="col-md-2">
+                <select name="city_id" class="form-control" style="width: 100%;">
+                    <option value="">Select Location</option>
+                    @foreach ($cities as $city)
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <select name="category" class="form-control" style="width: 100%;">
+                    <option value="">Select Category</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class=" w-25 btn text-light bgprimary">Search</button>
+
+
         </form>
         @if (isset($jobs))
             @if ($jobs->isEmpty())
@@ -71,6 +88,9 @@
                         </a>
                     </div>
                 @endforeach
+                {{-- <div class="pagination">
+                    {{ $jobs->links() }}
+                </div> --}}
             @endif
         @endif
     </div>
