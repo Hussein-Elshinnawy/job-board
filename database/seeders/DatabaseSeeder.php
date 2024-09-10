@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Application;
 use App\Models\Candidate;
 use App\Models\Category;
@@ -34,10 +35,6 @@ class DatabaseSeeder extends Seeder
             $this->call(TechnologySeeder::class);
         }
 
-        // if (User::count() == 0) {
-        //     $this->call(UserSeeder::class);
-        // }
-
         if (Candidate::count() == 0) {
             $this->call(CandidateSeeder::class);
         }
@@ -57,13 +54,19 @@ class DatabaseSeeder extends Seeder
         if (Comment::count() == 0) {
             $this->call(CommentSeeder::class);
         }
-        // ! this is just temp
-        // $this->call([
-        //     UserSeeder::class,
-        //     CompanySeeder::class,
-        //     CandidateSeeder::class,
-        // ]);
+
+        $this->call(AdminSeeder::class);
+
+        //     User::factory()->create([
+        //         "name" => "Admin",
+        //         'email' => 'admin@example.com',
+        //         'email_verified_at' => now(),
+        //         'password' => '$2y$12$M7B6FlyvRdkCuyde9jtr1OlLGr824OUjpF3sKDFtPCuEh8gvFzD8q',
+        //         'type' => 'admin',
+        //     ]);
+
+        //     Admin::factory()->create([
+        //         'user_id' => 21,
+        //     ]);
     }
 }
-
-// $creatorIds = User::pluck("id")->toArray();
