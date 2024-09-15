@@ -93,7 +93,7 @@ class JobPostResource extends Resource
                     ->searchable(),
                 Tables\Columns\SelectColumn::make('status')->options([
                     'pending' => 'Pending',
-                    'accepted' => 'Accepted',
+                    'approved' => 'Approved',
                     'rejected' => 'Rejected'
                 ])->default('pending')->width(200)->selectablePlaceholder(false)
                     ->sortable(),
