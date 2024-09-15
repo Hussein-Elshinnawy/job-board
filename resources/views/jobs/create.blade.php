@@ -1,12 +1,6 @@
 @extends("layouts.app")
 
 @section("content")
-    @isset($errors)
-        @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">{{ $error }}</div>
-        @endforeach
-    @endisset
-
     <div class="py-5 px-3">
         <form action="{{ route("jobs.store") }}" method="POST">
             @csrf
